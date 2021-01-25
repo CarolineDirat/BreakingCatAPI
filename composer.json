@@ -15,7 +15,8 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.18"
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
         "optimize-autoloader": true,
