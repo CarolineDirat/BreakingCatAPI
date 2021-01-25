@@ -1,6 +1,6 @@
 # Breaking Cat Api
 
-![](Breaking_Cat_header.png)
+![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/breaking_cat_header.png)
 *Image from <https://breakingbad.echosystem.fr/>*
 
 **The fun API which put Breaking Bad Quotes in cat photos.**
