@@ -1,0 +1,24 @@
+name: phpstan
+
+on: [push]
+
+jobs:
+  Phpstan_src:
+    name: Phpstan_src
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project v2
+        uses: actions/checkout@v2
+            
+      # composer-installer-action
+      - uses: actions/checkout@master
+      - uses: nanasess/composer-installer-action@master
+      - run: composer install
+      - run: php -d memory_limit=-1
+
+      - name: OSKAR PHPStan
+        uses: docker://oskarstark/phpstan-ga
+        env:
+          REQUIRE_DEV: true
+        with:
+          args: analyze src/ -c phpstan-ci.neon
