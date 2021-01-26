@@ -1,0 +1,9 @@
+parameters:
+	level: 6
+	paths:
+		- src
+		- tests
+	bootstrapFiles:
+		- vendor/bin/.phpunit/phpunit-9-0/vendor/autoload.php
+	reportUnmatchedIgnoredErrors: false
+	
