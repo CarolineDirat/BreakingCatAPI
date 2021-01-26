@@ -14,4 +14,4 @@ phpunit:
   stage: PHPUnit_Tests
   script:
     - php ./vendor/bin/simple-phpunit --coverage-text --colors=never
-  allows_failure: false
+  allow_failure: false
