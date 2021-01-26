@@ -1,4 +1,4 @@
-name: phpstan-src
+name: phpstan
 
 on: [push]
 
