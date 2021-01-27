@@ -8,9 +8,7 @@ interface CallCataasServiceInterface
 {
     /**
      * getRandomCat
-     * Download the image in /public/img/cat.jpg
-     *
-     * @return ResponseInterface
+     * Download the image in /public/img/cat.jpg.
      */
     public function getRandomCat(): ResponseInterface;
 }

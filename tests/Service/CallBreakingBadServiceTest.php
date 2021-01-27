@@ -15,7 +15,7 @@ final class CallBreakingBadServiceTest extends TestCase
 
         $breakingBadArray = $callBreakingBadService->getRandomQuote();
 
-        $this->assertArrayHasKey("quote", $breakingBadArray);
-        $this->assertArrayHasKey("author", $breakingBadArray);
+        $this->assertArrayHasKey('quote', $breakingBadArray);
+        $this->assertArrayHasKey('author', $breakingBadArray);
     }
 }

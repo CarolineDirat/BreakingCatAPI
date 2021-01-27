@@ -17,7 +17,6 @@ class RandomController extends AbstractController
         CallBreakingBadServiceInterface $callBreakingBadService,
         CallCataasServiceInterface $callCataasService
     ): Response {
-        
         $breakingBadArray = $callBreakingBadService->getRandomQuote();
 
         $cataasResponse = $callCataasService->getRandomCat();
