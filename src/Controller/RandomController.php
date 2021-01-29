@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\CallBreakingBadServiceInterface;
 use App\Service\CallCataasServiceInterface;
+use App\Service\CardServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,16 +16,21 @@ class RandomController extends AbstractController
      */
     public function index(
         CallBreakingBadServiceInterface $callBreakingBadService,
-        CallCataasServiceInterface $callCataasService
+        CallCataasServiceInterface $callCataasService,
+        CardServiceInterface $cardService
     ): Response {
         $breakingBadArray = $callBreakingBadService->getRandomQuote();
 
         $cataasResponse = $callCataasService->getRandomCat();
+        
+        $cardContent = $cardService->createContent($cataasResponse->getContent(), $breakingBadArray);
 
-        // return by default (the implementation is not finished)
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/RandomController.php',
-        ]);
+        return new Response(
+            $cardContent,
+            200,
+            [
+                'Content-Type' => 'image/jpeg',
+            ]
+        );
     }
 }

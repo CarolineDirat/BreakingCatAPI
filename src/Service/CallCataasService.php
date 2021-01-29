@@ -11,10 +11,11 @@ final class CallCataasService extends CallApiService implements CallCataasServic
     /**
      * getRandomCat
      * Download the image in /public/img/cat.jpg.
+     * 
+     * @return ResponseInterface
      */
     public function getRandomCat(): ResponseInterface
     {
-        // $result = file_put_contents(__DIR__ . '/../../public/img/cat.jpg', $response->getContent());
-        return $this->getApi(self::URL, '/cat');
+        return $this->getApi(self::URL, '/cat');   
     }
 }
