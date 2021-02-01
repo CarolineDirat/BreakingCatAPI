@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use Exception;
-
 final class CardService implements CardServiceInterface
 {
     /**
@@ -37,7 +35,6 @@ final class CardService implements CardServiceInterface
     private function createResource(string $imageContent, array $quote)
     {
         $image = \imagecreatefromstring($imageContent);
-
         $heigh = \imagesy($image);
         $width = \imagesx($image);
 
@@ -52,11 +49,10 @@ final class CardService implements CardServiceInterface
         $quoteHeigh = 60 + $lineNb * 25;
 
         $card = \imagecreatetruecolor($width, $heigh + $quoteHeigh);
-
         $black = \imagecolorallocate($card, 0, 0, 0);
         $white = \imagecolorallocate($card, 255, 255, 255);
-
         \imagefill($card, 0, 0, $black);
+
         \imagecopymerge($card, $image, 0, 0, 0, 0, $width, $heigh, 100);
         \imagedestroy($image);
 
@@ -84,10 +80,6 @@ final class CardService implements CardServiceInterface
             \imageline($card, 0 + $i, 0 + $i, 0 + $i, \imagesy($card), $black);
             \imageline($card, 0, 0 + $i, \imagesx($card), 0 + $i, $black);
             \imageline($card, \imagesx($card) - $i, 0, \imagesx($card) - $i, \imagesy($card), $black);
-        }
-
-        if (empty(\get_resource_type($card))) {
-            throw new Exception('Error Processing Request in CardService::createCard()');
         }
 
         return $card;
