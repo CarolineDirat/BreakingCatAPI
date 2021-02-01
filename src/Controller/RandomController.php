@@ -22,7 +22,7 @@ class RandomController extends AbstractController
         $breakingBadArray = $callBreakingBadService->getRandomQuote();
 
         $cataasResponse = $callCataasService->getRandomCat();
-        
+
         $cardContent = $cardService->createContent($cataasResponse->getContent(), $breakingBadArray);
 
         return new Response(
