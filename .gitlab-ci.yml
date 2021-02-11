@@ -8,6 +8,7 @@ cache:
     - vendor/
 
 before_script:
+  - apt-get install autoconf
   - apt-get update -yqq
   - apt-get install libjpeg-dev libpng-dev -yqq
   - docker-php-ext-install gd
