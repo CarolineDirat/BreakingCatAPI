@@ -11,9 +11,9 @@ before_script:
   - apt update -y
   - pecl install xdebug
   - docker-php-ext-enable xdebug
-  - apt-get install libpng-dev libjpeg-dev libjpeg62-turbo-dev libzip-dev zip -y
-  - docker-php-ext-configure gd --with-jpeg
-  - docker-php-ext-install gd zip
+  - apt-get install libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libzip-dev zip -y
+  - docker-php-ext-configure gd --with-jpeg --with-freetype
+  - docker-php-ext-install -j$(nproc) gd zip
   - curl -sS https://getcomposer.org/installer | php
   - mv composer.phar /usr/local/bin/composer
   - composer install --prefer-dist --no-ansi --no-interaction --no-progress
