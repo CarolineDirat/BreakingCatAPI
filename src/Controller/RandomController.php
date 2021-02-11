@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RandomController extends AbstractController
 {
     /**
-     * @Route("/api/random/jpeg", name="api_random_jpeg")
+     * @Route("/api/random-jpeg", name="api_random_jpeg")
      */
     public function jpeg(
         CallBreakingBadServiceInterface $callBreakingBadService,
