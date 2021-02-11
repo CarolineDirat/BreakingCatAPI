@@ -19,4 +19,5 @@
 .phpunit.result.cache
 /phpunit.xml
 phpunit.xml.dist.bak
+/public/test-coverage
 ###< symfony/phpunit-bridge ###
