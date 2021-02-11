@@ -1,4 +1,4 @@
-image: jakzal/phpqa:php7.4
+image: php:7.4-cli
 
 before_script:
   - composer install
@@ -8,9 +8,15 @@ cache:
     - vendor/
 
 before_script: 
-  - apt-get update -y
-  - apt-get install php5-gd libpng-dev libjpeg-dev -y
+  - apt update -y
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  - apt-get install libpng-dev libjpeg-dev -y 
   - docker-php-ext-install gd
+  - curl -sS https://getcomposer.org/installer | php
+  - mv composer.phar /usr/local/bin/composer
+  - composer install --prefer-dist --no-ansi --no-interaction --no-progress
+
 
 stages:
   - PHPUnit_Tests
