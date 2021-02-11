@@ -7,10 +7,9 @@ cache:
   paths:
     - vendor/
 
-before_script:
-  - apt-get install autoconf
-  - apt-get update -yqq
-  - apt-get install libjpeg-dev libpng-dev -yqq
+before_script: 
+  - apt-get update -y
+  - apt-get install php5-gd libpng-dev libjpeg-dev -y
   - docker-php-ext-install gd
 
 stages:
