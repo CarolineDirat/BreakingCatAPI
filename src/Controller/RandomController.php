@@ -14,7 +14,7 @@ class RandomController extends AbstractController
     /**
      * @Route("/api/random/jpeg", name="api_random_jpeg")
      */
-    public function index(
+    public function jpeg(
         CallBreakingBadServiceInterface $callBreakingBadService,
         CallCataasServiceInterface $callCataasService,
         CardServiceInterface $cardService
