@@ -1,7 +1,15 @@
-image: jakzal/phpqa:php7.4
+image: php:7.4-cli
 
-before_script:
-  - composer install
+before_script: 
+  - apt update -y
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  - apt-get install libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libzip-dev zip -y
+  - docker-php-ext-configure gd --with-jpeg --with-freetype
+  - docker-php-ext-install -j$(nproc) gd zip
+  - curl -sS https://getcomposer.org/installer | php
+  - mv composer.phar /usr/local/bin/composer
+  - composer install --prefer-dist --no-ansi --no-interaction --no-progress
 
 cache:
   paths:
