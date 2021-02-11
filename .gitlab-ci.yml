@@ -2,7 +2,7 @@ image: jakzal/phpqa:php7.4
 
 before_script:
   - apt update -y
-  - apt-get install libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev -y
+  - apt-get install autoconf libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev -y
   - docker-php-ext-configure gd --with-jpeg --with-freetype
   - docker-php-ext-install -j$(nproc) gd 
   - composer install
