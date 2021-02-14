@@ -14,4 +14,30 @@ class RandomControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
     }
+
+    /**
+     * @dataProvider provideUrls
+     */
+    public function testRedirections(string $url): void
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $client->followRedirect();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
+    }
+
+    /**
+     * provideUrls.
+     *
+     * @return array<mixed>
+     */
+    public function provideUrls(): array
+    {
+        return [
+            ['/'],
+            ['/api'],
+        ];
+    }
 }
