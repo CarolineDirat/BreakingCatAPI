@@ -33,7 +33,7 @@ class ExceptionListener
         if ('prod' === $this->environment) {
             $exception = $event->getThrowable();
 
-            $result['content'] = 'Oops! An Error Occurred';
+            $result['title'] = 'Oops! An Error Occurred.';
             $code = $exception->getCode();
             $code = empty($code) ? Response::HTTP_BAD_REQUEST : $code;
             $result['error'] = [
