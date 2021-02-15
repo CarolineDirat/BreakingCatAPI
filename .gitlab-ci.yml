@@ -21,5 +21,6 @@ stages:
 phpunit:
   stage: PHPUnit_Tests
   script:
-    - php ./vendor/bin/simple-phpunit --coverage-text --colors=never
+    - php bin/console cache:clear --env=test
+    - php -d xdebug.mode=coverage ./vendor/bin/simple-phpunit --coverage-text --colors=never
   allow_failure: false
