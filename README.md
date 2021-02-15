@@ -13,4 +13,34 @@ The fun API which put Breaking Bad Quotes in cat photos.
 
 Breaking Bad Quotes comes from [Breaking Bad Quotes API](https://breakingbadquotes.xyz/), and cat photos comes from another API: [Cataas.com](https://cataas.com/#/)
 
-## Its implementation is in progress
+## GET /api/ramdon-jpeg
+
+Will return a **ramdom jpeg image** :
+
+- the picture is a **random cat** from Cataas.com: <https://cataas.com/cat>
+- the message under the picture is a **random quote** from the Breaking Bad Quotes API: <https://breaking-bad-quotes.herokuapp.com/v1/quotes>
+
+![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/ramdom-jpeg.png)
+
+## When an error occurred
+
+### JSON response is returned
+
+For example :
+
+```` json
+{
+    "title": "Oops! An Error Occurred.",
+    "error": {
+        "code": 400,
+        "text": "Bad Request",
+        "message": "No route found for \"GET /d\""
+    },
+    "_links": {
+        "Get a random card": {
+            "href": "/api/ramdom-jpeg",
+            "method": "GET"
+        }
+    }
+}
+````
