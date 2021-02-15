@@ -50,11 +50,11 @@ class ExceptionListener
 
             $response = new JsonResponse($result, $result['error']['code'], []);
 
-            if ($exception instanceof HttpExceptionInterface) {
-                $response->setStatusCode($exception->getStatusCode());
-            } else {
-                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-            }
+            $statusCode = ($exception instanceof HttpExceptionInterface)
+                ? $exception->getStatusCode()
+                : Response::HTTP_INTERNAL_SERVER_ERROR
+            ;
+            $response->setStatusCode($statusCode);
 
             $event->setResponse($response);
         }
