@@ -43,7 +43,7 @@ final class ExceptionListenerTest extends TestCase
         $exceptionListener->onKernelException($event);
 
         $response = $event->getResponse();
-        $this->assertTrue(\is_null($response));
+        $this->assertTrue(null === $response);
     }
 
     /**
