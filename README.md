@@ -20,7 +20,7 @@ Will return a **ramdom jpeg image** :
 - the picture is a **random cat** from Cataas.com: <https://cataas.com/cat>
 - the message under the picture is a **random quote** from the Breaking Bad Quotes API: <https://breaking-bad-quotes.herokuapp.com/v1/quotes>
 
-![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/ramdom-jpeg.png)
+![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/ramdom-jpeg.jpg)
 
 ## When an error occurred
 
