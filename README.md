@@ -21,3 +21,26 @@ Will return a **ramdom jpeg image** :
 - the message under the picture is a **random quote** from the Breaking Bad Quotes API: <https://breaking-bad-quotes.herokuapp.com/v1/quotes>
 
 ![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/ramdom-jpeg.png)
+
+## When an error occurred
+
+### JSON response is returned
+
+For example :
+
+```` json
+{
+    "title": "Oops! An Error Occurred.",
+    "error": {
+        "code": 400,
+        "text": "Bad Request",
+        "message": "No route found for \"GET /d\""
+    },
+    "_links": {
+        "Get a random card": {
+            "href": "/api/ramdom-jpeg",
+            "method": "GET"
+        }
+    }
+}
+````
