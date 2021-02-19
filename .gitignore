@@ -21,3 +21,5 @@
 phpunit.xml.dist.bak
 /public/test-coverage
 ###< symfony/phpunit-bridge ###
+
+.mage.yml
