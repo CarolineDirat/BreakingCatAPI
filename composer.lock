@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48feb9913b8fe8d73258824cb2dca5f0",
+    "content-hash": "efe147047bb573c09456e4bbf5823261",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3265,6 +3265,73 @@
     ],
     "packages-dev": [
         {
+            "name": "andres-montanez/magallanes",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andres-montanez/Magallanes.git",
+                "reference": "b7ade4d2de5c54312d0cbf9f5da94b8910ad059d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andres-montanez/Magallanes/zipball/b7ade4d2de5c54312d0cbf9f5da94b8910ad059d",
+                "reference": "b7ade4d2de5c54312d0cbf9f5da94b8910ad059d",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "~1.11 | ^2.0",
+                "php": "^7.2 | ^8.0",
+                "symfony/console": "^4.0 | ^5.0",
+                "symfony/event-dispatcher": "^4.0 | ^5.0",
+                "symfony/filesystem": "^4.0 | ^5.0",
+                "symfony/finder": "^4.0 | ^5.0",
+                "symfony/process": "^4.0 | ^5.0",
+                "symfony/yaml": "^4.0 | ^5.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "~2.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "ext-posix": "*"
+            },
+            "bin": [
+                "bin/mage"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev",
+                    "dev-discovery-one": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrés Montañez",
+                    "email": "andresmontanez@gmail.com"
+                }
+            ],
+            "description": "The Deployment Tool for PHP Applications",
+            "homepage": "https://magephp.com",
+            "keywords": [
+                "deployment"
+            ],
+            "support": {
+                "issues": "https://github.com/andres-montanez/Magallanes/issues",
+                "source": "https://github.com/andres-montanez/Magallanes/tree/4.1.0"
+            },
+            "time": "2021-02-19T03:26:39+00:00"
+        },
+        {
             "name": "composer/semver",
             "version": "3.2.4",
             "source": {
@@ -3605,6 +3672,102 @@
                 }
             ],
             "time": "2021-01-21T18:50:42+00:00"
+        },
+        {
+            "name": "monolog/monolog",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "1cb1cde8e8dd0f70cc0fe51354a59acad9302084"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1cb1cde8e8dd0f70cc0fe51354a59acad9302084",
+                "reference": "1cb1cde8e8dd0f70cc0fe51354a59acad9302084",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "psr/log": "^1.0.1"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+                "doctrine/couchdb": "~1.0@dev",
+                "elasticsearch/elasticsearch": "^7",
+                "graylog2/gelf-php": "^1.4.2",
+                "mongodb/mongodb": "^1.8",
+                "php-amqplib/php-amqplib": "~2.4",
+                "php-console/php-console": "^3.1.3",
+                "phpspec/prophecy": "^1.6.1",
+                "phpstan/phpstan": "^0.12.59",
+                "phpunit/phpunit": "^8.5",
+                "predis/predis": "^1.1",
+                "rollbar/rollbar": "^1.3",
+                "ruflin/elastica": ">=0.90 <7.0.1",
+                "swiftmailer/swiftmailer": "^5.3|^6.0"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mbstring": "Allow to work properly with unicode symbols",
+                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "https://seld.be"
+                }
+            ],
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "https://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging",
+                "psr-3"
+            ],
+            "support": {
+                "issues": "https://github.com/Seldaek/monolog/issues",
+                "source": "https://github.com/Seldaek/monolog/tree/2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-14T13:15:25+00:00"
         },
         {
             "name": "nikic/php-parser",
