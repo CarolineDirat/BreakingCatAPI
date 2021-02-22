@@ -21,7 +21,6 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
-        "andres-montanez/magallanes": "^4.1",
         "friendsofphp/php-cs-fixer": "^2.18",
         "phpstan/phpstan": "^0.12.69",
         "symfony/browser-kit": "5.2.*",
