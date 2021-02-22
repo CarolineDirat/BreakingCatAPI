@@ -1,7 +1,4 @@
 {
-    "andres-montanez/magallanes": {
-        "version": "4.1.0"
-    },
     "composer/semver": {
         "version": "3.2.4"
     },
@@ -37,9 +34,6 @@
         "files": [
             "./.php_cs.dist"
         ]
-    },
-    "monolog/monolog": {
-        "version": "2.2.0"
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
