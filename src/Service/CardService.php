@@ -59,12 +59,12 @@ final class CardService implements CardServiceInterface
      */
     public function createContent(string $imageContent, array $quote): string
     {
-        $card = $this->createResource($imageContent, $quote);
+        $this->createCardResource($imageContent, $quote);
 
         ob_start();
-        \imagejpeg($card);
+        \imagejpeg($this->card);
         $content = ob_get_clean();
-        \imagedestroy($card);
+        \imagedestroy($this->card);
 
         return $content;
     }
@@ -74,34 +74,42 @@ final class CardService implements CardServiceInterface
      *
      * @param string                $imageContent
      * @param array<string, string> $quote
-     *
-     * @return false|resource
      */
-    private function createResource(string $imageContent, array $quote)
+    private function createCardResource(string $imageContent, array $quote): void
     {
         $image = \imagecreatefromstring($imageContent);
-        $this->imageHeight = \imagesy($image);
-        $this->imageWidth = \imagesx($image);
-        $numberCharsPerLine = $this->computeNumberCharsPerLine();
-
         $text = $quote['quote'];
         $author = $this->defineAuthor($quote);
-
-        $this->numberOfLines = $this->computeNumberOfLines($text);
-        $quoteHeigh = 60 + $this->numberOfLines * 25;
-
-        $textWrapped = \wordwrap($text, $numberCharsPerLine, "\n", \false);
-
-        $card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
-        $this->prepareCard($card, $image);
+        
+        $this->hydrate($image, $text);
+        
+        $this->prepareCard($image);
 
         \imagedestroy($image);
-
-        $this->addText($card, $textWrapped);
-        $this->addAuthor($card, $author);
-        $this->addFrame($card);
-
-        return $card;
+        
+        $numberCharsPerLine = $this->computeNumberCharsPerLine();
+        $textWrapped = \wordwrap($text, $numberCharsPerLine, "\n", \false);
+        
+        $this->addTextToCard($textWrapped);
+        $this->addAuthorToCard($author);
+        $this->addFrameToCard();
+    }
+    
+    /**
+     * hydrate
+     *
+     * @param  resource $image
+     * @param  string $text
+     */
+    public function hydrate($image, string $text): void
+    {
+        $this->imageHeight = \imagesy($image);
+        $this->imageWidth = \imagesx($image);
+        $this->numberOfLines = $this->computeNumberOfLines($text);
+        $quoteHeigh = 60 + $this->numberOfLines * 25;
+        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
+        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
+        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
     }
     
     /**
@@ -142,29 +150,24 @@ final class CardService implements CardServiceInterface
     /**
      * prepareCard
      *
-     * @param  resource $card
      * @param  resource $image
      */
-    private function prepareCard($card, $image): void
+    private function prepareCard($image): void
     {
-        $this->backgroundColor = \imagecolorallocate($card, 0, 0, 0);
-        $this->textColor = \imagecolorallocate($card, 255, 255, 255);
-
-        \imagefill($card, 0, 0, $this->backgroundColor);
-        \imagecopymerge($card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
+        \imagefill($this->card, 0, 0, $this->backgroundColor);
+        \imagecopymerge($this->card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
     }
     
     /**
      * addText
      *
-     * @param resource $card
      * @param string $textWrapped
      * 
      */
-    private function addText($card, string $textWrapped): void
+    private function addTextToCard(string $textWrapped): void
     {
         \imagettftext(
-            $card,
+            $this->card,
             15,
             0,
             25,
@@ -178,13 +181,12 @@ final class CardService implements CardServiceInterface
     /**
      * addAuthor
      *
-     * @param  resource $card
      * @param  string $author
      */
-    private function addAuthor($card, string $author): void
+    private function addAuthorToCard(string $author): void
     {
         \imagettftext(
-            $card,
+            $this->card,
             12,
             0,
             (int) $this->imageWidth / 2,
@@ -198,16 +200,34 @@ final class CardService implements CardServiceInterface
     /**
      * addFrame
      *
-     * @param  resource $card
-     * 
      * @return void
      */
-    private function addFrame($card): void
+    private function addFrameToCard(): void
     {
         for ($i = 0; $i < 7; ++$i) {
-            \imageline($card, 0 + $i, 0 + $i, 0 + $i, \imagesy($card), $this->backgroundColor);
-            \imageline($card, 0, 0 + $i, \imagesx($card), 0 + $i, $this->backgroundColor);
-            \imageline($card, \imagesx($card) - $i, 0, \imagesx($card) - $i, \imagesy($card), $this->backgroundColor);
+            \imageline(
+                $this->card,
+                0 + $i,
+                0 + $i,
+                0 + $i,
+                \imagesy($this->card),
+                $this->backgroundColor
+            );
+            \imageline(
+                $this->card,
+                0,
+                0 + $i,
+                \imagesx($this->card),
+                0 + $i,
+                $this->backgroundColor
+            );
+            \imageline(
+                $this->card,
+                \imagesx($this->card) - $i,
+                0, \imagesx($this->card) - $i, 
+                \imagesy($this->card),
+                $this->backgroundColor
+            );
         }
     }
 }
