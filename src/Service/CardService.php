@@ -3,49 +3,48 @@
 namespace App\Service;
 
 final class CardService implements CardServiceInterface
-{            
+{
     /**
-     * card
+     * card.
      *
-     * @var resource|null
+     * @var false|resource
      */
-    private $card = null;
+    private $card = false;
 
     private string $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
-    
+
     /**
-     * imageWidth
+     * imageWidth.
      *
-     * @var int|false
+     * @var false|int
      */
     private $imageWidth = false;
-    
+
     /**
-     * imageHeight
+     * imageHeight.
      *
-     * @var int|false
+     * @var false|int
      */
     private $imageHeight = false;
-    
+
     /**
-     * numberOfLines
+     * numberOfLines.
      *
-     * @var int|null
+     * @var null|int
      */
     private ?int $numberOfLines = null;
 
-    
     /**
-     * backgroundColor
+     * backgroundColor.
      *
-     * @var int|false
+     * @var false|int
      */
     private $backgroundColor = false;
-    
+
     /**
-     * textColor
+     * textColor.
      *
-     * @var int|false
+     * @var false|int
      */
     private $textColor = false;
 
@@ -70,6 +69,23 @@ final class CardService implements CardServiceInterface
     }
 
     /**
+     * hydrate.
+     *
+     * @param resource $image
+     * @param string   $text
+     */
+    private function hydrate($image, string $text): void
+    {
+        $this->imageHeight = \imagesy($image);
+        $this->imageWidth = \imagesx($image);
+        $this->numberOfLines = $this->computeNumberOfLines($text);
+        $quoteHeigh = 60 + $this->numberOfLines * 25;
+        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
+        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
+        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
+    }
+
+    /**
      * cardCreate.
      *
      * @param string                $imageContent
@@ -80,89 +96,72 @@ final class CardService implements CardServiceInterface
         $image = \imagecreatefromstring($imageContent);
         $text = $quote['quote'];
         $author = $this->defineAuthor($quote);
-        
+
         $this->hydrate($image, $text);
-        
+
         $this->prepareCard($image);
 
         \imagedestroy($image);
-        
+
         $numberCharsPerLine = $this->computeNumberCharsPerLine();
         $textWrapped = \wordwrap($text, $numberCharsPerLine, "\n", \false);
-        
+
         $this->addTextToCard($textWrapped);
         $this->addAuthorToCard($author);
         $this->addFrameToCard();
     }
-    
+
     /**
-     * hydrate
-     *
-     * @param  resource $image
-     * @param  string $text
-     */
-    public function hydrate($image, string $text): void
-    {
-        $this->imageHeight = \imagesy($image);
-        $this->imageWidth = \imagesx($image);
-        $this->numberOfLines = $this->computeNumberOfLines($text);
-        $quoteHeigh = 60 + $this->numberOfLines * 25;
-        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
-        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
-        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
-    }
-    
-    /**
-     * computeNumberCharsPerLine
+     * computeNumberCharsPerLine.
      *
      * @return int
      */
     private function computeNumberCharsPerLine(): int
-    {        
+    {
         return (int) floor(($this->imageWidth - 50) / 10);
     }
-    
+
     /**
-     * computeNumberOfLines
+     * computeNumberOfLines.
      *
-     * @param  string $text Text of the Breaking bad quote
+     * @param string $text Text of the Breaking bad quote
      */
     private function computeNumberOfLines(string $text): int
     {
         $charsArray = \str_split($text, 1);
         $charsTotalNb = \count($charsArray);
         $numberCharsPerLine = $this->computeNumberCharsPerLine();
+
         return (int) ceil($charsTotalNb / $numberCharsPerLine);
     }
-    
+
     /**
-     * defineAuthor
+     * defineAuthor.
      *
-     * @param  array<string, string> $quote
-     * 
+     * @param array<string, string> $quote
+     *
      * @return string
      */
     private function defineAuthor(array $quote): string
     {
         return empty($author) ? 'Anonymous' : $quote['author'];
     }
-    
+
     /**
-     * prepareCard
+     * prepareCard.
      *
-     * @param  resource $image
+     * @param resource $image
      */
     private function prepareCard($image): void
     {
         \imagefill($this->card, 0, 0, $this->backgroundColor);
         \imagecopymerge($this->card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
     }
-    
+
     /**
-     * addText
+     * addText.
      *
      * @param string $textWrapped
-     * 
      */
     private function addTextToCard(string $textWrapped): void
     {
@@ -177,11 +176,11 @@ final class CardService implements CardServiceInterface
             $textWrapped
         );
     }
-    
+
     /**
-     * addAuthor
+     * addAuthor.
      *
-     * @param  string $author
+     * @param string $author
      */
     private function addAuthorToCard(string $author): void
     {
@@ -196,11 +195,9 @@ final class CardService implements CardServiceInterface
             '-' . $author . '-'
         );
     }
-    
+
     /**
-     * addFrame
-     *
-     * @return void
+     * addFrame.
      */
     private function addFrameToCard(): void
     {
@@ -224,7 +221,8 @@ final class CardService implements CardServiceInterface
             \imageline(
                 $this->card,
                 \imagesx($this->card) - $i,
-                0, \imagesx($this->card) - $i, 
+                0,
+                \imagesx($this->card) - $i,
                 \imagesy($this->card),
                 $this->backgroundColor
             );
