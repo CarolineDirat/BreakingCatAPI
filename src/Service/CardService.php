@@ -144,7 +144,8 @@ final class CardService implements CardServiceInterface
      */
     private function defineAuthor(array $quote): string
     {
-        return empty($author) ? 'Anonymous' : $quote['author'];
+        $author = $quote['author'];
+        return empty($author) ? 'Anonymous' : $author;
     }
 
     /**
