@@ -3,22 +3,21 @@
 namespace App\Tests\Service;
 
 use App\Service\CardService;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 class CardServiceTest extends TestCase
-{    
+{
     /**
-     * imageContent
+     * imageContent.
      *
-     * @var string|false
+     * @var false|string
      */
     private $imageContent;
-    
+
     /**
-     * imageResource
+     * imageResource.
      *
-     * @var resource|false
+     * @var false|resource
      */
     private $imageResource;
 
@@ -27,6 +26,7 @@ class CardServiceTest extends TestCase
         $this->imageContent = \file_get_contents(__DIR__ . '/cat.jpg');
         $this->imageResource = \imagecreatefromstring($this->imageContent);
     }
+
     public function testCreateContentWithGoodArguments(): void
     {
         $cardService = new CardService();
@@ -83,8 +83,8 @@ class CardServiceTest extends TestCase
     public function testDefineAuthorWithWrongQuote(): void
     {
         $cardService = new CardService();
-        
-        $quote = [ "jfdlfkj" => "fdqfqqf"];
+
+        $quote = ['jfdlfkj' => 'fdqfqqf'];
         $this->expectError();
         $cardService->defineAuthor($quote);
     }
@@ -100,9 +100,9 @@ class CardServiceTest extends TestCase
         $this->assertIsInt($cardService->computeNumberOfLines($text));
         $this->assertEquals($result, $cardService->computeNumberOfLines($text));
     }
-    
+
     /**
-     * textProvider
+     * textProvider.
      *
      * @return array<int, array<int, int|string>>
      */
@@ -114,21 +114,20 @@ class CardServiceTest extends TestCase
                 your responsibility. And a man, a man provides. And he does it even when he's not 
                 appreciated or respected or even loved. He simply bears up and he does it. 
                 Because he's a man.", 6],
-            ["You don’t want a criminal lawyer. You want a criminal lawyer.", 2],
-            ["So roll me further bitch!", 1],
-
+            ['You don’t want a criminal lawyer. You want a criminal lawyer.', 2],
+            ['So roll me further bitch!', 1],
         ];
     }
 
     public function testHydrate(): void
     {
-        $text = "You don’t want a criminal lawyer. You want a criminal lawyer.";
+        $text = 'You don’t want a criminal lawyer. You want a criminal lawyer.';
         $cardService = new CardService();
         $cardService->hydrate($this->imageResource, $text);
-        
+
         $this->assertIsResource($cardService->getCard());
         $this->assertEquals(
-            "C:\wamp64\www\BreakingCatAPI\src\Service/../../public/fonts/Averia_Serif_Libre.ttf",
+            'C:\\wamp64\\www\\BreakingCatAPI\\src\\Service/../../public/fonts/Averia_Serif_Libre.ttf',
             $cardService->getFont()
         );
         $this->assertEquals(600, $cardService->getImageWidth());

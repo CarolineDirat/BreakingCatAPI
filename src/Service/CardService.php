@@ -69,31 +69,6 @@ final class CardService implements CardServiceInterface
     }
 
     /**
-     * cardCreate.
-     *
-     * @param string                $imageContent
-     * @param array<string, string> $quote
-     */
-    private function createCardResource(string $imageContent, array $quote): void
-    {
-        $image = \imagecreatefromstring($imageContent);
-        $text = $quote['quote'];
-        $author = $this->defineAuthor($quote);
-
-        $this->hydrate($image, $text);
-
-        $this->prepareCard($image);
-
-        \imagedestroy($image);
-
-        $this->addTextToCard(
-            $this->wrap($text)
-        );
-        $this->addAuthorToCard($author);
-        $this->addFrameToCard();
-    }
-
-    /**
      * hydrate.
      *
      * @param resource $image
@@ -108,16 +83,6 @@ final class CardService implements CardServiceInterface
         $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
         $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
         $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
-    }
-
-    /**
-     * computeNumberCharsPerLine.
-     *
-     * @return int
-     */
-    private function computeNumberCharsPerLine(): int
-    {
-        return (int) floor(($this->imageWidth - 50) / 10);
     }
 
     /**
@@ -144,7 +109,111 @@ final class CardService implements CardServiceInterface
     public function defineAuthor(array $quote): string
     {
         $author = $quote['author'];
+
         return empty($author) ? 'Anonymous' : $author;
+    }
+
+    /**
+     * Get card.
+     *
+     * @return false|resource
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * Get the value of font.
+     */
+    public function getFont(): string
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get imageWidth.
+     *
+     * @return false|int
+     */
+    public function getImageWidth()
+    {
+        return $this->imageWidth;
+    }
+
+    /**
+     * Get imageHeight.
+     *
+     * @return false|int
+     */
+    public function getImageHeight()
+    {
+        return $this->imageHeight;
+    }
+
+    /**
+     * Get numberOfLines.
+     *
+     * @return null|int
+     */
+    public function getNumberOfLines()
+    {
+        return $this->numberOfLines;
+    }
+
+    /**
+     * Get backgroundColor.
+     *
+     * @return false|int
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     * Get textColor.
+     *
+     * @return false|int
+     */
+    public function getTextColor()
+    {
+        return $this->textColor;
+    }
+
+    /**
+     * cardCreate.
+     *
+     * @param string                $imageContent
+     * @param array<string, string> $quote
+     */
+    private function createCardResource(string $imageContent, array $quote): void
+    {
+        $image = \imagecreatefromstring($imageContent);
+        $text = $quote['quote'];
+        $author = $this->defineAuthor($quote);
+
+        $this->hydrate($image, $text);
+
+        $this->prepareCard($image);
+
+        \imagedestroy($image);
+
+        $this->addTextToCard(
+            $this->wrap($text)
+        );
+        $this->addAuthorToCard($author);
+        $this->addFrameToCard();
+    }
+
+    /**
+     * computeNumberCharsPerLine.
+     *
+     * @return int
+     */
+    private function computeNumberCharsPerLine(): int
+    {
+        return (int) floor(($this->imageWidth - 50) / 10);
     }
 
     /**
@@ -157,11 +226,12 @@ final class CardService implements CardServiceInterface
         \imagefill($this->card, 0, 0, $this->backgroundColor);
         \imagecopymerge($this->card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
     }
-    
+
     /**
-     * wrap
+     * wrap.
      *
-     * @param  string $text
+     * @param string $text
+     *
      * @return string
      */
     private function wrap(string $text): string
@@ -243,73 +313,5 @@ final class CardService implements CardServiceInterface
                 $this->backgroundColor
             );
         }
-    }
-
-    /**
-     * Get card.
-     *
-     * @return  false|resource
-     */ 
-    public function getCard()
-    {
-        return $this->card;
-    }
-
-    /**
-     * Get the value of font
-     */ 
-    public function getFont(): string
-    {
-        return $this->font;
-    }
-
-    /**
-     * Get imageWidth.
-     *
-     * @return  false|int
-     */ 
-    public function getImageWidth()
-    {
-        return $this->imageWidth;
-    }
-
-    /**
-     * Get imageHeight.
-     *
-     * @return  false|int
-     */ 
-    public function getImageHeight()
-    {
-        return $this->imageHeight;
-    }
-
-    /**
-     * Get numberOfLines.
-     *
-     * @return  null|int
-     */ 
-    public function getNumberOfLines()
-    {
-        return $this->numberOfLines;
-    }
-
-    /**
-     * Get backgroundColor.
-     *
-     * @return  false|int
-     */ 
-    public function getBackgroundColor()
-    {
-        return $this->backgroundColor;
-    }
-
-    /**
-     * Get textColor.
-     *
-     * @return  false|int
-     */ 
-    public function getTextColor()
-    {
-        return $this->textColor;
     }
 }
