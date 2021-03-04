@@ -69,23 +69,6 @@ final class CardService implements CardServiceInterface
     }
 
     /**
-     * hydrate.
-     *
-     * @param resource $image
-     * @param string   $text
-     */
-    private function hydrate($image, string $text): void
-    {
-        $this->imageHeight = \imagesy($image);
-        $this->imageWidth = \imagesx($image);
-        $this->numberOfLines = $this->computeNumberOfLines($text);
-        $quoteHeigh = 60 + $this->numberOfLines * 25;
-        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
-        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
-        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
-    }
-
-    /**
      * cardCreate.
      *
      * @param string                $imageContent
@@ -103,12 +86,28 @@ final class CardService implements CardServiceInterface
 
         \imagedestroy($image);
 
-        $numberCharsPerLine = $this->computeNumberCharsPerLine();
-        $textWrapped = \wordwrap($text, $numberCharsPerLine, "\n", \false);
-
-        $this->addTextToCard($textWrapped);
+        $this->addTextToCard(
+            $this->wrap($text)
+        );
         $this->addAuthorToCard($author);
         $this->addFrameToCard();
+    }
+
+    /**
+     * hydrate.
+     *
+     * @param resource $image
+     * @param string   $text
+     */
+    public function hydrate($image, string $text): void
+    {
+        $this->imageHeight = \imagesy($image);
+        $this->imageWidth = \imagesx($image);
+        $this->numberOfLines = $this->computeNumberOfLines($text);
+        $quoteHeigh = 60 + $this->numberOfLines * 25;
+        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
+        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
+        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
     }
 
     /**
@@ -126,7 +125,7 @@ final class CardService implements CardServiceInterface
      *
      * @param string $text Text of the Breaking bad quote
      */
-    private function computeNumberOfLines(string $text): int
+    public function computeNumberOfLines(string $text): int
     {
         $charsArray = \str_split($text, 1);
         $charsTotalNb = \count($charsArray);
@@ -142,7 +141,7 @@ final class CardService implements CardServiceInterface
      *
      * @return string
      */
-    private function defineAuthor(array $quote): string
+    public function defineAuthor(array $quote): string
     {
         $author = $quote['author'];
         return empty($author) ? 'Anonymous' : $author;
@@ -157,6 +156,22 @@ final class CardService implements CardServiceInterface
     {
         \imagefill($this->card, 0, 0, $this->backgroundColor);
         \imagecopymerge($this->card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
+    }
+    
+    /**
+     * wrap
+     *
+     * @param  string $text
+     * @return string
+     */
+    private function wrap(string $text): string
+    {
+        return \wordwrap(
+            $text,
+            $this->computeNumberCharsPerLine(),
+            "\n",
+            \false
+        );
     }
 
     /**
@@ -228,5 +243,73 @@ final class CardService implements CardServiceInterface
                 $this->backgroundColor
             );
         }
+    }
+
+    /**
+     * Get card.
+     *
+     * @return  false|resource
+     */ 
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * Get the value of font
+     */ 
+    public function getFont(): string
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get imageWidth.
+     *
+     * @return  false|int
+     */ 
+    public function getImageWidth()
+    {
+        return $this->imageWidth;
+    }
+
+    /**
+     * Get imageHeight.
+     *
+     * @return  false|int
+     */ 
+    public function getImageHeight()
+    {
+        return $this->imageHeight;
+    }
+
+    /**
+     * Get numberOfLines.
+     *
+     * @return  null|int
+     */ 
+    public function getNumberOfLines()
+    {
+        return $this->numberOfLines;
+    }
+
+    /**
+     * Get backgroundColor.
+     *
+     * @return  false|int
+     */ 
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     * Get textColor.
+     *
+     * @return  false|int
+     */ 
+    public function getTextColor()
+    {
+        return $this->textColor;
     }
 }
