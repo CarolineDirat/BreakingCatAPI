@@ -124,11 +124,13 @@ class CardServiceTest extends TestCase
         $text = 'You don’t want a criminal lawyer. You want a criminal lawyer.';
         $cardService = new CardService();
         $cardService->hydrate($this->imageResource, $text);
+        $fontPathFromSrc = $cardService->getFont();
+        $fontPathFromTests = \str_replace('src', 'tests', $fontPathFromSrc);
 
         $this->assertIsResource($cardService->getCard());
         $this->assertEquals(
             __DIR__ .'/../../public/fonts/Averia_Serif_Libre.ttf',
-            $cardService->getFont()
+            $fontPathFromTests
         );
         $this->assertEquals(600, $cardService->getImageWidth());
         $this->assertEquals(450, $cardService->getImageHeight());
