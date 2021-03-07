@@ -5,6 +5,50 @@ namespace App\Service;
 final class CardService implements CardServiceInterface
 {
     /**
+     * card.
+     *
+     * @var false|resource
+     */
+    private $card = false;
+
+    private string $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
+
+    /**
+     * imageWidth.
+     *
+     * @var false|int
+     */
+    private $imageWidth = false;
+
+    /**
+     * imageHeight.
+     *
+     * @var false|int
+     */
+    private $imageHeight = false;
+
+    /**
+     * numberOfLines.
+     *
+     * @var null|int
+     */
+    private ?int $numberOfLines = null;
+
+    /**
+     * backgroundColor.
+     *
+     * @var false|int
+     */
+    private $backgroundColor = false;
+
+    /**
+     * textColor.
+     *
+     * @var false|int
+     */
+    private $textColor = false;
+
+    /**
      * create.
      *
      * @param string               $imageContent
@@ -14,14 +58,127 @@ final class CardService implements CardServiceInterface
      */
     public function createContent(string $imageContent, array $quote): string
     {
-        $card = $this->createResource($imageContent, $quote);
+        $this->createCardResource($imageContent, $quote);
 
         ob_start();
-        \imagejpeg($card);
+        \imagejpeg($this->card);
         $content = ob_get_clean();
-        \imagedestroy($card);
+        \imagedestroy($this->card);
 
         return $content;
+    }
+
+    /**
+     * hydrate.
+     *
+     * @param false|resource $image
+     * @param string         $text
+     */
+    public function hydrate($image, string $text): void
+    {
+        $this->imageHeight = \imagesy($image);
+        $this->imageWidth = \imagesx($image);
+        $this->numberOfLines = $this->computeNumberOfLines($text);
+        $quoteHeigh = 60 + $this->numberOfLines * 25;
+        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
+        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
+        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
+    }
+
+    /**
+     * computeNumberOfLines.
+     *
+     * @param string $text Text of the Breaking bad quote
+     */
+    public function computeNumberOfLines(string $text): int
+    {
+        $charsArray = \str_split($text, 1);
+        $charsTotalNb = \count($charsArray);
+        $numberCharsPerLine = $this->computeNumberCharsPerLine();
+
+        return (int) ceil($charsTotalNb / $numberCharsPerLine);
+    }
+
+    /**
+     * defineAuthor.
+     *
+     * @param array<string, string> $quote
+     *
+     * @return string
+     */
+    public function defineAuthor(array $quote): string
+    {
+        $author = $quote['author'];
+
+        return empty($author) ? 'Anonymous' : $author;
+    }
+
+    /**
+     * Get card.
+     *
+     * @return false|resource
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * Get the value of font.
+     */
+    public function getFont(): string
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get imageWidth.
+     *
+     * @return false|int
+     */
+    public function getImageWidth()
+    {
+        return $this->imageWidth;
+    }
+
+    /**
+     * Get imageHeight.
+     *
+     * @return false|int
+     */
+    public function getImageHeight()
+    {
+        return $this->imageHeight;
+    }
+
+    /**
+     * Get numberOfLines.
+     *
+     * @return null|int
+     */
+    public function getNumberOfLines()
+    {
+        return $this->numberOfLines;
+    }
+
+    /**
+     * Get backgroundColor.
+     *
+     * @return false|int
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     * Get textColor.
+     *
+     * @return false|int
+     */
+    public function getTextColor()
+    {
+        return $this->textColor;
     }
 
     /**
@@ -29,59 +186,132 @@ final class CardService implements CardServiceInterface
      *
      * @param string                $imageContent
      * @param array<string, string> $quote
-     *
-     * @return false|resource
      */
-    private function createResource(string $imageContent, array $quote)
+    private function createCardResource(string $imageContent, array $quote): void
     {
         $image = \imagecreatefromstring($imageContent);
-        $heigh = \imagesy($image);
-        $width = \imagesx($image);
-
         $text = $quote['quote'];
+        $author = $this->defineAuthor($quote);
 
-        $charsArray = \str_split($text, 1);
-        $charsTotalNb = \count($charsArray);
-        $charsNbPerLine = (int) floor(($width - 50) / 10);
-        $lineNb = (int) ceil($charsTotalNb / $charsNbPerLine);
+        $this->hydrate($image, $text);
 
-        $text = \wordwrap($text, $charsNbPerLine, "\n", \false);
-        $quoteHeigh = 60 + $lineNb * 25;
+        $this->prepareCard($image);
 
-        $card = \imagecreatetruecolor($width, $heigh + $quoteHeigh);
-        $black = \imagecolorallocate($card, 0, 0, 0);
-        $white = \imagecolorallocate($card, 255, 255, 255);
-        \imagefill($card, 0, 0, $black);
-
-        \imagecopymerge($card, $image, 0, 0, 0, 0, $width, $heigh, 100);
         \imagedestroy($image);
 
-        $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
+        $this->addTextToCard(
+            $this->wrap($text)
+        );
+        $this->addAuthorToCard($author);
+        $this->addFrameToCard();
+    }
 
-        \imagettftext($card, 15, 0, 25, $heigh + 30, $white, $font, $text);
+    /**
+     * computeNumberCharsPerLine.
+     *
+     * @return int
+     */
+    private function computeNumberCharsPerLine(): int
+    {
+        return (int) floor(($this->imageWidth - 50) / 10);
+    }
 
-        $author = $quote['author'];
-        if (empty($author)) {
-            $author = 'Anonymous';
-        }
+    /**
+     * prepareCard.
+     *
+     * @param resource $image
+     */
+    private function prepareCard($image): void
+    {
+        \imagefill($this->card, 0, 0, $this->backgroundColor);
+        \imagecopymerge($this->card, $image, 0, 0, 0, 0, $this->imageWidth, $this->imageHeight, 100);
+    }
 
+    /**
+     * wrap.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    private function wrap(string $text): string
+    {
+        return \wordwrap(
+            $text,
+            $this->computeNumberCharsPerLine(),
+            "\n",
+            \false
+        );
+    }
+
+    /**
+     * addText.
+     *
+     * @param string $textWrapped
+     */
+    private function addTextToCard(string $textWrapped): void
+    {
         \imagettftext(
-            $card,
+            $this->card,
+            15,
+            0,
+            25,
+            $this->imageHeight + 30,
+            $this->textColor,
+            $this->font,
+            $textWrapped
+        );
+    }
+
+    /**
+     * addAuthor.
+     *
+     * @param string $author
+     */
+    private function addAuthorToCard(string $author): void
+    {
+        \imagettftext(
+            $this->card,
             12,
             0,
-            (int) $width / 2,
-            $heigh + 40 + $lineNb * 25,
-            $white,
-            $font,
+            (int) $this->imageWidth / 2,
+            $this->imageHeight + 40 + $this->numberOfLines * 25,
+            $this->textColor,
+            $this->font,
             '-' . $author . '-'
         );
+    }
 
+    /**
+     * addFrame.
+     */
+    private function addFrameToCard(): void
+    {
         for ($i = 0; $i < 7; ++$i) {
-            \imageline($card, 0 + $i, 0 + $i, 0 + $i, \imagesy($card), $black);
-            \imageline($card, 0, 0 + $i, \imagesx($card), 0 + $i, $black);
-            \imageline($card, \imagesx($card) - $i, 0, \imagesx($card) - $i, \imagesy($card), $black);
+            \imageline(
+                $this->card,
+                0 + $i,
+                0 + $i,
+                0 + $i,
+                \imagesy($this->card),
+                $this->backgroundColor
+            );
+            \imageline(
+                $this->card,
+                0,
+                0 + $i,
+                \imagesx($this->card),
+                0 + $i,
+                $this->backgroundColor
+            );
+            \imageline(
+                $this->card,
+                \imagesx($this->card) - $i,
+                0,
+                \imagesx($this->card) - $i,
+                \imagesy($this->card),
+                $this->backgroundColor
+            );
         }
-
-        return $card;
     }
 }
