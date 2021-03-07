@@ -127,7 +127,7 @@ class CardServiceTest extends TestCase
 
         $this->assertIsResource($cardService->getCard());
         $this->assertEquals(
-            'C:\\wamp64\\www\\BreakingCatAPI\\src\\Service/../../public/fonts/Averia_Serif_Libre.ttf',
+            __DIR__ .'/../../public/fonts/Averia_Serif_Libre.ttf',
             $cardService->getFont()
         );
         $this->assertEquals(600, $cardService->getImageWidth());
