@@ -71,8 +71,8 @@ final class CardService implements CardServiceInterface
     /**
      * hydrate.
      *
-     * @param resource $image
-     * @param string   $text
+     * @param false|resource $image
+     * @param string         $text
      */
     public function hydrate($image, string $text): void
     {
