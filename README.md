@@ -16,9 +16,9 @@ Breaking Bad Quotes comes from [Breaking Bad Quotes API](https://breakingbadquot
 ## Production host
 <https://www.breakingcat.fr>
 
-## GET /api/ramdon-jpeg
+## GET /api/random-jpeg
 
-Will return a **ramdom jpeg image** :
+Will return a **random jpeg image** :
 
 - the picture is a **random cat** from Cataas.com: <https://cataas.com/cat>
 - the message under the picture is a **random quote** from the Breaking Bad Quotes API: <https://breaking-bad-quotes.herokuapp.com/v1/quotes>
