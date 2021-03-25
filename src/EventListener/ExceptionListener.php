@@ -43,7 +43,7 @@ class ExceptionListener
             ];
             $result['_links'] = [
                 'Get a random card' => [
-                    'href' => '/api/ramdom-jpeg',
+                    'href' => '/api/random-jpeg',
                     'method' => 'GET',
                 ],
             ];
