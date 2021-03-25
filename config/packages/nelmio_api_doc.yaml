@@ -1,0 +1,36 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Breaking Cat API
+            description: This is an awesome api!
+            version: 1.0.0
+        paths:
+            /api/random-jpeg:
+                get:
+                    tags:
+                        - Login
+                    summary: Returns a random jpeg BreakingCat.
+                    responses:
+                        '200':
+                            description: Yude I'm right !!!
+                        '500':
+                            description: Oops ! An error occurred.
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            title:
+                                                type: string
+                                            error:
+                                                type: object
+                                            _links:
+                                                type: object
+                                                
+    
+    areas: # to filter documented areas
+            path_patterns:
+                - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+            host_patterns:
+                - ^api\.
+                                
