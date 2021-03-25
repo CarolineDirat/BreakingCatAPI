@@ -42,12 +42,4 @@ class RandomController extends AbstractController
     {
         return $this->redirectToRoute('api_random_jpeg');
     }
-
-    /**
-     * @Route("/api", name="home_api")
-     */
-    public function homeApi(): RedirectResponse
-    {
-        return $this->redirectToRoute('api_random_jpeg');
-    }
 }
