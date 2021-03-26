@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -15,29 +15,13 @@ class RandomControllerTest extends WebTestCase
         $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
     }
 
-    /**
-     * @dataProvider provideUrls
-     */
-    public function testRedirections(string $url): void
+    public function testRedirection(): void
     {
         $client = static::createClient();
-        $client->request('GET', $url);
+        $client->request('GET', '/');
         $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
-    }
-
-    /**
-     * provideUrls.
-     *
-     * @return array<mixed>
-     */
-    public function provideUrls(): array
-    {
-        return [
-            ['/'],
-            ['/api'],
-        ];
     }
 }

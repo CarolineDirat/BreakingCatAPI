@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class RandomController extends AbstractController
 {
     /**
+     * Returns a random jpeg card (cat picture with its Breaking Bad quote).
+     *
      * @Route("/api/random-jpeg", name="api_random_jpeg")
      */
     public function jpeg(
@@ -39,14 +41,6 @@ class RandomController extends AbstractController
      * @Route("/", name="home")
      */
     public function home(): RedirectResponse
-    {
-        return $this->redirectToRoute('api_random_jpeg');
-    }
-
-    /**
-     * @Route("/api", name="home_api")
-     */
-    public function homeApi(): RedirectResponse
     {
         return $this->redirectToRoute('api_random_jpeg');
     }

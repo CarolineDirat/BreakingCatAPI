@@ -14,7 +14,11 @@ The fun API which put Breaking Bad Quotes in cat photos.
 Breaking Bad Quotes comes from [Breaking Bad Quotes API](https://breakingbadquotes.xyz/), and cat photos comes from another API: [Cataas.com](https://cataas.com/#/)
 
 ## Production host
+
 <https://www.breakingcat.fr>
+
+## GET /api/doc
+To acces to the api documentation
 
 ## GET /api/random-jpeg
 
@@ -41,7 +45,7 @@ For example :
     },
     "_links": {
         "Get a random card": {
-            "href": "/api/ramdom-jpeg",
+            "href": "/api/random-jpeg",
             "method": "GET"
         }
     }

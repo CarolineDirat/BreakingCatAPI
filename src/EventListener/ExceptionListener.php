@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Throwable;
 
 class ExceptionListener
 {
@@ -32,22 +33,7 @@ class ExceptionListener
     {
         if ('prod' === $this->environment) {
             $exception = $event->getThrowable();
-
-            $result['title'] = 'Oops! An Error Occurred.';
-            $code = $exception->getCode();
-            $code = empty($code) ? Response::HTTP_BAD_REQUEST : $code;
-            $result['error'] = [
-                'code' => $code,
-                'text' => Response::$statusTexts[$code],
-                'message' => $exception->getMessage(),
-            ];
-            $result['_links'] = [
-                'Get a random card' => [
-                    'href' => '/api/ramdom-jpeg',
-                    'method' => 'GET',
-                ],
-            ];
-
+            $result = $this->makeErrorArray($exception);
             $response = new JsonResponse($result, $result['error']['code'], []);
 
             $statusCode = ($exception instanceof HttpExceptionInterface)
@@ -58,5 +44,32 @@ class ExceptionListener
 
             $event->setResponse($response);
         }
+    }
+
+    /**
+     * makeErrorArray.
+     *
+     * @param Throwable $exception
+     *
+     * @return array<mixed>
+     */
+    private function makeErrorArray(Throwable $exception): array
+    {
+        $result['title'] = 'Oops! An Error Occurred.';
+        $code = $exception->getCode();
+        $code = empty($code) ? Response::HTTP_BAD_REQUEST : $code;
+        $result['error'] = [
+            'code' => $code,
+            'text' => Response::$statusTexts[$code],
+            'message' => $exception->getMessage(),
+        ];
+        $result['_links'] = [
+            'Get a random card' => [
+                'href' => '/api/random-jpeg',
+                'method' => 'GET',
+            ],
+        ];
+
+        return $result;
     }
 }
