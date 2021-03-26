@@ -17,7 +17,8 @@ Breaking Bad Quotes comes from [Breaking Bad Quotes API](https://breakingbadquot
 
 <https://www.breakingcat.fr>
 
-## Documentation : GET /api/doc
+## GET /api/doc
+To acces to the api documentation
 
 ## GET /api/random-jpeg
 
