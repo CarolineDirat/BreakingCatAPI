@@ -1,4 +1,7 @@
 {
+    "composer/pcre": {
+        "version": "3.0.0"
+    },
     "composer/semver": {
         "version": "3.2.4"
     },
@@ -224,14 +227,14 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.22.0"
     },
-    "symfony/polyfill-php70": {
-        "version": "v1.20.0"
-    },
     "symfony/polyfill-php73": {
         "version": "v1.22.0"
     },
     "symfony/polyfill-php80": {
         "version": "v1.22.0"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.25.0"
     },
     "symfony/process": {
         "version": "v5.2.1"
