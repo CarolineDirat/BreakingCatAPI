@@ -14,7 +14,7 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
-        '@PSR12' => true,
+        //'@PSR12' => true,
         '@PSR1' => true,
         '@PhpCsFixer' => true,
         '@DoctrineAnnotation' => true,
