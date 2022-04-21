@@ -9,17 +9,13 @@ jobs:
     steps:
       - name: Checkout project v2
         uses: actions/checkout@v2
-            
-      # composer-installer-action
-      - uses: actions/checkout@master
-      - uses: nanasess/composer-installer-action@master
-      - run: composer install
-      - run: php -d memory_limit=-1
+      - uses: php-actions/composer@v5
 
+      # phpstan action
       - name: PHPStan (php-action)
         uses: php-actions/phpstan@v3
         with:
-          path: src/
+          version: 1.5.7
           php_version: 7.4.5
+          path: src/
           configuration: phpstan-ci.neon
-          version: 9.5.20
