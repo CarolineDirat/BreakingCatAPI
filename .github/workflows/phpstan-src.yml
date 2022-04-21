@@ -16,9 +16,10 @@ jobs:
       - run: composer install
       - run: php -d memory_limit=-1
 
-      - name: OSKAR PHPStan
-        uses: docker://oskarstark/phpstan-ga
-        env:
-          REQUIRE_DEV: true
+      - name: PHPStan (php-action)
+        uses: php-actions/phpstan@v3
         with:
-          args: analyze src/ -c phpstan-ci.neon
+          path: src/
+          php_version: 7.4.5
+          configuration: phpstan-ci.neon
+          version: 9.5.20
