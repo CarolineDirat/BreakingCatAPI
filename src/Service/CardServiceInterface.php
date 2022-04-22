@@ -10,7 +10,7 @@ interface CardServiceInterface
      * @param string               $imageContent
      * @param array<string,string> $quote        ["quote" : string, "author" : string]
      *
-     * @return string
+     * @return null|string
      */
-    public function createContent(string $imageContent, array $quote): string;
+    public function createContent(string $imageContent, array $quote);
 }
