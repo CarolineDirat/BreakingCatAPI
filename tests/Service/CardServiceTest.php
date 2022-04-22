@@ -48,7 +48,7 @@ class CardServiceTest extends TestCase
         $this->expectError();
         $cardService->createContent($imageContent, $quote);
 
-/** @phpstan-ignore-line */
+        /** @phpstan-ignore-line */
         $imageContent = null;
         $this->expectError();
         $cardService->createContent($imageContent, $quote); // @phpstan-ignore-line

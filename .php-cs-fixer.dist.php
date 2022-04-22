@@ -17,6 +17,7 @@ return $config->setRules([
     '@Symfony' => true,
     '@PSR12' => true,
     '@PSR1' => true,
+    '@PSR2' => true,
     '@PhpCsFixer' => true,
     '@DoctrineAnnotation' => true,
     'concat_space' => false,
