@@ -17,6 +17,7 @@ class CardServiceTest extends TestCase
     public function setUp(): void
     {
         $this->imageContent = (string) \file_get_contents(__DIR__ . '/cat.jpg');
+
         /** @var resource $imageResource */
         $imageResource = \imagecreatefromstring($this->imageContent);
         $this->imageResource = $imageResource;
@@ -45,7 +46,9 @@ class CardServiceTest extends TestCase
         ];
 
         $this->expectError();
-        $cardService->createContent($imageContent, $quote); /** @phpstan-ignore-line */
+        $cardService->createContent($imageContent, $quote);
+
+/** @phpstan-ignore-line */
         $imageContent = null;
         $this->expectError();
         $cardService->createContent($imageContent, $quote); // @phpstan-ignore-line

@@ -39,7 +39,7 @@ final class CardService implements CardServiceInterface
      * hydrate.
      *
      * @param resource $image
-     * @param string         $text
+     * @param string   $text
      */
     public function hydrate($image, string $text): void
     {
@@ -47,6 +47,7 @@ final class CardService implements CardServiceInterface
         $this->imageWidth = \imagesx($image);
         $this->numberOfLines = $this->computeNumberOfLines($text);
         $quoteHeigh = 60 + $this->numberOfLines * 25;
+
         /** @var resource $card */
         $card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
         $this->card = $card;

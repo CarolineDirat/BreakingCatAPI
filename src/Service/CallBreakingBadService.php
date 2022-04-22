@@ -4,7 +4,7 @@ namespace App\Service;
 
 final class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
 {
-    const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
+    public const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
 
     /**
      * getRandomQuote from the Breaking Bad API Quotes.

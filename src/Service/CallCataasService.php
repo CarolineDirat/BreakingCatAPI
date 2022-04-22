@@ -6,7 +6,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class CallCataasService extends CallApiService implements CallCataasServiceInterface
 {
-    const URL = 'https://cataas.com';
+    public const URL = 'https://cataas.com';
 
     /**
      * getRandomCat
