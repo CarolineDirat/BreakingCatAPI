@@ -70,7 +70,7 @@ final class ExceptionListenerTest extends TestCase
     public function verifyResponseBody(Response $response): void
     {
         $serializer = new Serializer([], [new JsonEncoder()]);
-        $body = $serializer->decode($response->getContent(), 'json');
+        $body = $serializer->decode((string) $response->getContent(), 'json');
 
         $this->assertTrue(\array_key_exists('title', $body));
         $this->assertTrue(\array_key_exists('error', $body));

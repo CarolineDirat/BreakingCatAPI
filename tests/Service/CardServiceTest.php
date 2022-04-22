@@ -7,24 +7,19 @@ use PHPUnit\Framework\TestCase;
 
 class CardServiceTest extends TestCase
 {
-    /**
-     * imageContent.
-     *
-     * @var false|string
-     */
-    private $imageContent;
+    private string $imageContent;
 
     /**
-     * imageResource.
-     *
-     * @var false|resource
+     * @var resource
      */
     private $imageResource;
 
     public function setUp(): void
     {
-        $this->imageContent = \file_get_contents(__DIR__ . '/cat.jpg');
-        $this->imageResource = \imagecreatefromstring($this->imageContent);
+        $this->imageContent = (string) \file_get_contents(__DIR__ . '/cat.jpg');
+        /** @var resource $imageResource */
+        $imageResource = \imagecreatefromstring($this->imageContent);
+        $this->imageResource = $imageResource;
     }
 
     public function testCreateContentWithGoodArguments(): void
