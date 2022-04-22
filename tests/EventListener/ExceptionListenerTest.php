@@ -25,6 +25,7 @@ final class ExceptionListenerTest extends TestCase
         $exceptionListener = new ExceptionListener('prod');
         $exceptionListener->onKernelException($event);
 
+        /** @var Response $response */
         $response = $event->getResponse();
         $this->assertSame('application/json', $response->headers->get('Content-Type'));
 
@@ -58,6 +59,7 @@ final class ExceptionListenerTest extends TestCase
 
         $exceptionListener->onKernelException($event);
 
+        /** @var Response $response */
         $response = $event->getResponse();
         $this->assertSame('application/json', $response->headers->get('Content-Type'));
 
@@ -70,7 +72,7 @@ final class ExceptionListenerTest extends TestCase
     public function verifyResponseBody(Response $response): void
     {
         $serializer = new Serializer([], [new JsonEncoder()]);
-        $body = $serializer->decode($response->getContent(), 'json');
+        $body = $serializer->decode((string) $response->getContent(), 'json');
 
         $this->assertTrue(\array_key_exists('title', $body));
         $this->assertTrue(\array_key_exists('error', $body));

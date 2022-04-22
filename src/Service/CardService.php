@@ -7,56 +7,23 @@ final class CardService implements CardServiceInterface
     /**
      * card.
      *
-     * @var false|resource
+     * @var resource
      */
-    private $card = false;
+    private $card;
 
     private string $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
 
-    /**
-     * imageWidth.
-     *
-     * @var false|int
-     */
-    private $imageWidth = false;
+    private int $imageWidth;
 
-    /**
-     * imageHeight.
-     *
-     * @var false|int
-     */
-    private $imageHeight = false;
+    private int $imageHeight;
 
-    /**
-     * numberOfLines.
-     *
-     * @var null|int
-     */
     private ?int $numberOfLines = null;
 
-    /**
-     * backgroundColor.
-     *
-     * @var false|int
-     */
-    private $backgroundColor = false;
+    private int $backgroundColor;
 
-    /**
-     * textColor.
-     *
-     * @var false|int
-     */
-    private $textColor = false;
+    private int $textColor;
 
-    /**
-     * create.
-     *
-     * @param string               $imageContent
-     * @param array<string,string> $quote        ["quote" : string, "author" : string]
-     *
-     * @return string
-     */
-    public function createContent(string $imageContent, array $quote): string
+    public function createContent(string $imageContent, array $quote)
     {
         $this->createCardResource($imageContent, $quote);
 
@@ -65,14 +32,14 @@ final class CardService implements CardServiceInterface
         $content = ob_get_clean();
         \imagedestroy($this->card);
 
-        return $content;
+        return $content ? $content : null;
     }
 
     /**
      * hydrate.
      *
-     * @param false|resource $image
-     * @param string         $text
+     * @param resource $image
+     * @param string   $text
      */
     public function hydrate($image, string $text): void
     {
@@ -80,9 +47,12 @@ final class CardService implements CardServiceInterface
         $this->imageWidth = \imagesx($image);
         $this->numberOfLines = $this->computeNumberOfLines($text);
         $quoteHeigh = 60 + $this->numberOfLines * 25;
-        $this->card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
-        $this->backgroundColor = \imagecolorallocate($this->card, 0, 0, 0);
-        $this->textColor = \imagecolorallocate($this->card, 255, 255, 255);
+
+        /** @var resource $card */
+        $card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
+        $this->card = $card;
+        $this->backgroundColor = (int) \imagecolorallocate($this->card, 0, 0, 0);
+        $this->textColor = (int) \imagecolorallocate($this->card, 255, 255, 255);
     }
 
     /**
@@ -189,6 +159,7 @@ final class CardService implements CardServiceInterface
      */
     private function createCardResource(string $imageContent, array $quote): void
     {
+        /** @var resource $image */
         $image = \imagecreatefromstring($imageContent);
         $text = $quote['quote'];
         $author = $this->defineAuthor($quote);
