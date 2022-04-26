@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+
 final class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
 {
     public const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
@@ -13,7 +15,20 @@ final class CallBreakingBadService extends CallApiService implements CallBreakin
      */
     public function getRandomQuote(): array
     {
-        $response = $this->getApi(self::URL)->toArray();
+        try {
+            $response = $this->getApi(self::URL)->toArray();
+        } catch (\Throwable $e) {
+            $message = 'Oops! An error occurred from Breaking Bad Quotes: ' . $e->getMessage();
+            if (\str_contains($e->getMessage(), '503 Service Unavailable')) {
+                $message = 'HTTP 503 - Service Unavailable from Breaking Bad Quotes';
+            }
+            $response = [
+                    [
+                        'quote' => $message,
+                        'author' => 'CaroCode',
+                    ],
+                ];
+        }
 
         return $response[0];
     }
