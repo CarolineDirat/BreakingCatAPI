@@ -4,7 +4,7 @@ namespace App\Service;
 
 final class CardService implements CardServiceInterface
 {
-    // @var \GdImage
+    /** @var \GdImage */
     private $card;
 
     private string $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
