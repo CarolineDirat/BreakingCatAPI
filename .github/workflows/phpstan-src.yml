@@ -21,4 +21,4 @@ jobs:
         env:
           REQUIRE_DEV: true
         with:
-          args: analyze tests/ -c phpstan-ci.neon
+          args: analyze src/ -c phpstan-ci.neon
