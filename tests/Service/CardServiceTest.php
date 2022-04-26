@@ -10,7 +10,7 @@ class CardServiceTest extends TestCase
     private string $imageContent;
 
     /**
-     * @var resource
+     * @var \GdImage
      */
     private $imageResource;
 
@@ -18,7 +18,7 @@ class CardServiceTest extends TestCase
     {
         $this->imageContent = (string) \file_get_contents(__DIR__ . '/cat.jpg');
 
-        /** @var resource $imageResource */
+        /** @var \GdImage $imageResource */
         $imageResource = \imagecreatefromstring($this->imageContent);
         $this->imageResource = $imageResource;
     }
@@ -124,7 +124,7 @@ class CardServiceTest extends TestCase
         $fontPathFromSrc = $cardService->getFont();
         $fontPathFromTests = \str_replace('src', 'tests', $fontPathFromSrc);
 
-        $this->assertIsResource($cardService->getCard());
+        $this->assertInstanceOf('\GdImage', $cardService->getCard());
         $this->assertEquals(
             __DIR__ .'/../../public/fonts/Averia_Serif_Libre.ttf',
             $fontPathFromTests
