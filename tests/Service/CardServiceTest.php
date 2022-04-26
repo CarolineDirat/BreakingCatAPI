@@ -10,7 +10,7 @@ class CardServiceTest extends TestCase
     private string $imageContent;
 
     /**
-     * @var resource
+     * @var \GdImage
      */
     private $imageResource;
 
@@ -18,7 +18,7 @@ class CardServiceTest extends TestCase
     {
         $this->imageContent = (string) \file_get_contents(__DIR__ . '/cat.jpg');
 
-        /** @var resource $imageResource */
+        /** @var \GdImage $imageResource */
         $imageResource = \imagecreatefromstring($this->imageContent);
         $this->imageResource = $imageResource;
     }
