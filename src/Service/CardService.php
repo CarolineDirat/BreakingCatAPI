@@ -4,12 +4,7 @@ namespace App\Service;
 
 final class CardService implements CardServiceInterface
 {
-    /**
-     * card.
-     *
-     * @var resource
-     */
-    private $card;
+    private \GdImage $card;
 
     private string $font = __DIR__ . '/../../public/fonts/Averia_Serif_Libre.ttf';
 
@@ -38,7 +33,7 @@ final class CardService implements CardServiceInterface
     /**
      * hydrate.
      *
-     * @param resource $image
+     * @param \GdImage $image
      * @param string   $text
      */
     public function hydrate($image, string $text): void
@@ -48,7 +43,7 @@ final class CardService implements CardServiceInterface
         $this->numberOfLines = $this->computeNumberOfLines($text);
         $quoteHeigh = 60 + $this->numberOfLines * 25;
 
-        /** @var resource $card */
+        /** @var \GdImage $card */
         $card = \imagecreatetruecolor($this->imageWidth, $this->imageHeight + $quoteHeigh);
         $this->card = $card;
         $this->backgroundColor = (int) \imagecolorallocate($this->card, 0, 0, 0);
@@ -86,7 +81,7 @@ final class CardService implements CardServiceInterface
     /**
      * Get card.
      *
-     * @return false|resource
+     * @return \GdImage
      */
     public function getCard()
     {
@@ -159,7 +154,7 @@ final class CardService implements CardServiceInterface
      */
     private function createCardResource(string $imageContent, array $quote): void
     {
-        /** @var resource $image */
+        /** @var \GdImage $image */
         $image = \imagecreatefromstring($imageContent);
         $text = $quote['quote'];
         $author = $this->defineAuthor($quote);
@@ -190,7 +185,7 @@ final class CardService implements CardServiceInterface
     /**
      * prepareCard.
      *
-     * @param resource $image
+     * @param \GdImage $image
      */
     private function prepareCard($image): void
     {
