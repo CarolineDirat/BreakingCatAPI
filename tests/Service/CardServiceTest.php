@@ -124,7 +124,7 @@ class CardServiceTest extends TestCase
         $fontPathFromSrc = $cardService->getFont();
         $fontPathFromTests = \str_replace('src', 'tests', $fontPathFromSrc);
 
-        $this->assertIsResource($cardService->getCard());
+        $this->assertInstanceOf('\GdImage', $cardService->getCard());
         $this->assertEquals(
             __DIR__ .'/../../public/fonts/Averia_Serif_Libre.ttf',
             $fontPathFromTests
