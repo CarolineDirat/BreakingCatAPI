@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-
 final class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
 {
     public const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
@@ -23,11 +21,11 @@ final class CallBreakingBadService extends CallApiService implements CallBreakin
                 $message = 'HTTP 503 - Service Unavailable from Breaking Bad Quotes';
             }
             $response = [
-                    [
-                        'quote' => $message,
-                        'author' => 'CaroCode',
-                    ],
-                ];
+                [
+                    'quote' => $message,
+                    'author' => 'CaroCode',
+                ],
+            ];
         }
 
         return $response[0];
