@@ -1,5 +1,34 @@
 @import "~bootstrap/scss/bootstrap";
 
+@font-face {
+    font-family: "Averia Serif Libre";
+    src: url("../fonts/Averia_Serif_Libre.ttf") format("ttf");
+}
+
 body {
-    background-color:antiquewhite;
+    background-color: $green-100;
+    font-family: "Averia Serif Libre";
+}
+
+body a {
+    text-decoration: none;
+    color: black;
+}
+
+body a:hover {
+    color: $teal-500;
+}
+
+.bc-header {
+    color: whitesmoke;
+}
+
+.bc-footer {
+    color: $green-300;
+    font-size: 1.3rem;
+}
+
+.bc-footer a {
+    color: $green-300;
+    text-decoration: none;
 }
