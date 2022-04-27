@@ -40,8 +40,8 @@ class RandomController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(): RedirectResponse
+    public function home(): Response
     {
-        return $this->redirectToRoute('api_random_jpeg');
+        return $this->render('homepage.html.twig');
     }
 }
