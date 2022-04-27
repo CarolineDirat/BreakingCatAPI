@@ -24,9 +24,9 @@ class RandomController extends AbstractController
     ): Response {
         $breakingBadArray = $callBreakingBadService->getRandomQuote();
 
-        $cataasResponse = $callCataasService->getRandomCat();
+        $cataas = (string) $callCataasService->getRandomCat()->getContent();
 
-        $cardContent = $cardService->createContent($cataasResponse->getContent(), $breakingBadArray);
+        $cardContent = $cardService->createContent($cataas, $breakingBadArray);
 
         return new Response(
             $cardContent,

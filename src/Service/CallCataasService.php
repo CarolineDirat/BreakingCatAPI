@@ -2,20 +2,21 @@
 
 namespace App\Service;
 
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 final class CallCataasService extends CallApiService implements CallCataasServiceInterface
 {
     public const URL = 'https://cataas.com';
+    private const path503cat = __DIR__ . '/503.jpg';
 
-    /**
-     * getRandomCat
-     * Download the image in /public/img/cat.jpg.
-     *
-     * @return ResponseInterface
-     */
-    public function getRandomCat(): ResponseInterface
+    public function getRandomCat(): Response
     {
-        return $this->getApi(self::URL, '/cat');
+        try {
+            $response = $this->getApi(self::URL, '/cat')->getContent();
+        } catch (\Throwable $th) {
+            $response = (string) \file_get_contents(self::path503cat);
+        }
+
+        return new Response($response);
     }
 }
