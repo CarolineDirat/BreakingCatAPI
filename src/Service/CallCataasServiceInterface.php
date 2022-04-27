@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 interface CallCataasServiceInterface
 {
