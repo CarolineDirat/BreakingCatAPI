@@ -13,8 +13,6 @@ final class CallCataasService extends CallApiService implements CallCataasServic
     {
         try {
             $response = $this->getApi(self::URL, '/cat')->getContent();
-
-            throw new \Exception('Cataas is Down', 1);
         } catch (\Throwable $th) {
             $response = (string) \file_get_contents(self::path503cat);
         }
