@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 interface CallCataasServiceInterface
@@ -9,8 +10,6 @@ interface CallCataasServiceInterface
     /**
      * getRandomCat
      * Download the image in /public/img/cat.jpg.
-     *
-     * @return ResponseInterface
      */
-    public function getRandomCat(): ResponseInterface;
+    public function getRandomCat(): Response;
 }
