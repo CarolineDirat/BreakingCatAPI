@@ -24,6 +24,7 @@ phpunit.xml.dist.bak
 ###< symfony/phpunit-bridge ###
 
 deploy
+deploy-preprod
 notes.txt
 /public/homeImage
 
