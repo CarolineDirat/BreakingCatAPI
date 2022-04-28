@@ -25,6 +25,7 @@ phpunit.xml.dist.bak
 
 deploy
 notes.txt
+/public/homeImage
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

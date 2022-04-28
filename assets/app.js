@@ -13,6 +13,7 @@ import './bootstrap';
 
 // loads the jquery package from node_modules
 import $ from 'jquery';
+import { async } from 'regenerator-runtime';
 
 // import the function from greet.js (the .js extension is optional)
 // ./ (or ../) means to look for a local file
@@ -20,4 +21,19 @@ import $ from 'jquery';
 
 $(document).ready(function() {
     //$('body').prepend('<h1>'+greet('jill')+'</h1>');
+
+    //////////////////// homepage - call a new card ////////////////////////
+    
+    const clickHere = $('#homepage-click-here');
+    const homepageCard = $('#homepage-card');
+    var urlNewCard = homepageCard.data('url');
+
+    clickHere.on('click', function(e) {
+        $.ajax({url: urlNewCard})
+            .then(function (data) {
+                homepageCard.empty();
+                const card = '<img src="/public/homeImage/' + data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
+                homepageCard.append(card);
+            });
+    });
 });

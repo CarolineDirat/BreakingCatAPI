@@ -16,19 +16,23 @@ body a {
 }
 
 body a:hover {
-    color: $teal-500;
+    color: $green-300;
+}
+
+.btn-dark {
+    color: $green-100 !important;
 }
 
 .bc-header {
-    color: whitesmoke;
+    color: $green-100;
 }
 
 .bc-footer {
-    color: $green-300;
+    color: whitesmoke;
     font-size: 1.3rem;
 }
 
 .bc-footer a {
-    color: $green-300;
+    color: whitesmoke;
     text-decoration: none;
 }

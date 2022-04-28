@@ -7,10 +7,12 @@
         Breaking Cat
     </div>
     <div class="d-flex justify-content-center mb-2">
-        <button type="button" class="btn btn-dark btn-lg">Click here !</button>
+        <button id="homepage-click-here" type="button" class="btn btn-dark btn-lg">
+            Click here !
+        </button>
     </div>
-    <div class="d-flex justify-content-center">
-        <img src={{ url("api_random_jpeg") }} class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">
+    <div id="homepage-card" class="d-flex justify-content-center" data-url={{ url('new_home_card') }}>
+        <img src={{ asset("/public/homeImage/home.jpeg") }} class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">
     </div>
     <div class="row bg-dark justify-content-center fs-2 py-2 mt-5 mb-4 bc-header">
         Breaking Cat API
@@ -18,17 +20,27 @@
     <div class="row text-center">
         <h3>
             <button type="button" class="btn btn-dark btn-lg">GET</button>
-            <a href={{ url("api_random_jpeg") }}>/api/random-jpeg</a> 
+            <a href={{ url("api_random_jpeg") }}>https://www.breakingcat.fr/api/random-jpeg</a> 
         </h3>
     </div>
-    <div class="row bg-dark py-3 mt-3 bc-footer text-center">
-        <span> The card is created using data from two APIs: </span>
-        <a href="https://breakingbadquotes.xyz/" class="d-flex justify-content-center fs-4 fw-bolder">
-            Breaking Bad Quotes API
-        </a>
-        <a href="https://cataas.com/#/" class="d-flex justify-content-center fs-4 fw-bolder">
-            Catass
-        </a>
+    <div class="row bg-dark py-3 mt-3 bc-footer justify-content-center">
+        <div class="col"></div>
+        <div class="col-xxl col-xl-5 col-lg-6 col-md-6 col-sm-10 col-xs-11">
+            <span> The card is created using data from two APIs: </span>
+            <ul>
+                <li>
+                    <a href="https://breakingbadquotes.xyz/" class="fs-5 fw-bolder">
+                        Breaking Bad Quotes API
+                    </a>
+                </li>
+                <li>
+                    <a href="https://cataas.com/#/" class="fs-5 fw-bolder">
+                        Catass
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col"></div>        
     </div>
 </div>
 
