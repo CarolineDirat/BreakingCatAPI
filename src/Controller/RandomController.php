@@ -31,7 +31,7 @@ class RandomController extends AbstractController
      *
      * @Route("/api/random-jpeg", name="api_random_jpeg")
      */
-  public function jpeg(): Response
+    public function jpeg(): Response
     {
         $cardContent = $this->getCardContent();
 
