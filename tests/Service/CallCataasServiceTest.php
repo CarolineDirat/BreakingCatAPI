@@ -15,4 +15,12 @@ final class CallCataasServiceTest extends TestCase
 
         $this->assertEquals(200, $callCataasService->getRandomCat()->getStatusCode());
     }
+
+    public function testGetRandomCatWhenCataasIsDown(): void
+    {
+        $client = HttpClient::create();
+        $callDownCataasService = new CallDownCataasService($client);
+
+        $this->assertEquals(200, $callDownCataasService->getRandomCat()->getStatusCode());
+    }
 }

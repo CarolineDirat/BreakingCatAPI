@@ -4,7 +4,7 @@ namespace App\Service;
 
 use Symfony\Component\HttpFoundation\Response;
 
-final class CallCataasService extends CallApiService implements CallCataasServiceInterface
+class CallCataasService extends CallApiService implements CallCataasServiceInterface
 {
     public const URL = 'https://cataas.com';
     private const path503cat = __DIR__ . '/503.jpg';

@@ -19,9 +19,15 @@ class RandomControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request('GET', '/');
-        $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
+    }
+
+    public function testNewCardHome(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/new-home-card');
+
+        $this->assertResponseIsSuccessful();
     }
 }
