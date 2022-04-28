@@ -90,7 +90,9 @@ class RandomController extends AbstractController
             $filename
         );
         $filesystem = new Filesystem();
-        $this->deleteOldCard($dir, $filesystem);
+        if ($filesystem->exists($dir)) {
+            $this->deleteOldCard($dir, $filesystem);
+        }
         $filesystem->dumpFile($path, (string) $cardContent);
     }
 
