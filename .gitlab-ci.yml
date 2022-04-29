@@ -12,6 +12,7 @@ before_script:
   - composer update
   - composer install --prefer-dist --no-ansi --no-interaction --no-progress
   - apt-get install nodejs -y
+  - apt-get install npm -y
   - npm run encore production --progress
 
 cache:
