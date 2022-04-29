@@ -81,11 +81,11 @@ class RandomController extends AbstractController
             $filename = 'home.jpeg';
         }
         $dir = sprintf(
-            '%s\public\homeImage',
+            '%s/public/homeImage',
             $this->kernel->getProjectDir()
         );
         $path = sprintf(
-            '%s\%s',
+            '%s/%s',
             $dir,
             $filename
         );
@@ -101,7 +101,7 @@ class RandomController extends AbstractController
         $files = (array) \scandir($dir);
         foreach ($files as $key => $file) {
             if (\str_contains((string) $file, 'home')) {
-                $filesystem->remove($dir . '\\' . $file);
+                $filesystem->remove($dir . '/' . $file);
             }
         }
     }
