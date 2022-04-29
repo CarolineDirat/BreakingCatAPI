@@ -11,7 +11,7 @@ before_script:
   - mv composer.phar /usr/local/bin/composer
   - composer update
   - composer install --prefer-dist --no-ansi --no-interaction --no-progress
-  - apt install nodejs
+  - apt-get install nodejs
   - npm run encore production --progress
 
 cache:
