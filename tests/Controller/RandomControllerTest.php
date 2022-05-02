@@ -26,6 +26,7 @@ class RandomControllerTest extends WebTestCase
     public function testNewCardHome(): void
     {
         $client = static::createClient();
+        $client->request('GET', '/');
         $client->request('GET', '/new-home-card');
 
         $this->assertResponseIsSuccessful();

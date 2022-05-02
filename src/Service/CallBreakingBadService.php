@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-final class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
+class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
 {
     public const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
 
