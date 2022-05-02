@@ -9,9 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Uid\Uuid;
 class RandomController extends AbstractController
 {
     public function __construct(
@@ -47,24 +48,30 @@ class RandomController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home(SessionInterface $session): Response
     {
+        $sessionId = Uuid::v4();
+        $session->set('idUser', $sessionId);
         $cardContent = $this->getCardContent();
-        $this->saveNewHomeCard($cardContent);
+        $this->saveNewHomeCard($cardContent, $sessionId);
 
-        return $this->render('homepage.html.twig');
+        return $this->render('homepage.html.twig', ['sessionId' => $sessionId]);
     }
 
     /**
      * @Route("/new-home-card", name="new_home_card")
      */
-    public function newHomeCard(): JsonResponse
+    public function newHomeCard(SessionInterface $session): JsonResponse
     {
+        $sessionId = $session->get('idUser');
         $filename = 'home-' . \random_int(1, 9999) . '.jpeg';
         $cardContent = $this->getCardContent();
-        $this->saveNewHomeCard($cardContent, $filename);
+        $this->saveNewHomeCard($cardContent, $sessionId, $filename);
 
-        return new JsonResponse(['filename' => $filename]);
+        return new JsonResponse([
+            'sessionId' => $sessionId,
+            'filename' => $filename],
+        );
     }
 
     private function getCardContent(): ?string
@@ -75,14 +82,18 @@ class RandomController extends AbstractController
         return $this->cardService->createContent($cataas, $breakingBadArray);
     }
 
-    private function saveNewHomeCard(?string $cardContent, ?string $filename = null): void
-    {
+    private function saveNewHomeCard(
+        ?string $cardContent,
+        string $sessionId,
+        string $filename = null
+    ): void {
         if (empty($filename)) {
             $filename = 'home.jpeg';
         }
         $dir = sprintf(
-            '%s/public/homeImage',
-            $this->kernel->getProjectDir()
+            '%s/public/homeImage/%s',
+            $this->kernel->getProjectDir(),
+            $sessionId
         );
         $path = sprintf(
             '%s/%s',
