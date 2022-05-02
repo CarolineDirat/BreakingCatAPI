@@ -18,4 +18,14 @@ final class CallBreakingBadServiceTest extends TestCase
         $this->assertArrayHasKey('quote', $breakingBadArray);
         $this->assertArrayHasKey('author', $breakingBadArray);
     }
+
+    public function testGetRandomQuoteWhenBreakingBadIsDown(): void
+    {
+        $client = HttpClient::create();
+        $callBreakingBadService = new CallDownBreakingBadService($client);
+        $breakingBadArray = $callBreakingBadService->getRandomQuote();
+
+        $this->assertArrayHasKey('quote', $breakingBadArray);
+        $this->assertArrayHasKey('author', $breakingBadArray);
+    }
 }

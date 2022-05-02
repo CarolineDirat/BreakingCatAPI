@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RandomControllerTest extends WebTestCase
 {
-    public function testIndex(): void
+    public function testJpeg(): void
     {
         $client = static::createClient();
         $client->request('GET', '/api/random-jpeg');
@@ -15,13 +15,20 @@ class RandomControllerTest extends WebTestCase
         $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
     }
 
-    public function testRedirection(): void
+    public function testHome(): void
     {
         $client = static::createClient();
         $client->request('GET', '/');
-        $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertResponseHasHeader('Content-Type', 'image/jpeg');
+    }
+
+    public function testNewCardHome(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        $client->request('GET', '/new-home-card');
+
+        $this->assertResponseIsSuccessful();
     }
 }

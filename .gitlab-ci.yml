@@ -11,6 +11,11 @@ before_script:
   - mv composer.phar /usr/local/bin/composer
   - composer update
   - composer install --prefer-dist --no-ansi --no-interaction --no-progress
+  - apt-get install nodejs -y
+  - apt-get install npm -y
+  - npm install --global yarn -y
+  - yarn add --dev @symfony/webpack-encore
+  - yarn encore production --progress
 
 cache:
   paths:

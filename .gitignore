@@ -24,4 +24,13 @@ phpunit.xml.dist.bak
 ###< symfony/phpunit-bridge ###
 
 deploy
+deploy-preprod
 notes.txt
+/public/homeImage
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

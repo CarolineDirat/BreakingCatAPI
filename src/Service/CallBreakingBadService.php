@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-final class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
+class CallBreakingBadService extends CallApiService implements CallBreakingBadServiceInterface
 {
     public const URL = 'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
 
@@ -18,7 +18,7 @@ final class CallBreakingBadService extends CallApiService implements CallBreakin
         } catch (\Throwable $e) {
             $message = 'Oops! An error occurred from Breaking Bad Quotes: ' . $e->getMessage();
             if (\str_contains($e->getMessage(), '503 Service Unavailable')) {
-                $message = 'HTTP 503 - Service Unavailable from Breaking Bad Quotes';
+                $message = 'Sorry :( Service Unavailable from Breaking Bad Quotes';
             }
             $response = [
                 [
