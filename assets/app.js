@@ -32,7 +32,7 @@ $(document).ready(function() {
         $.ajax({url: urlNewCard})
             .then(function (data) {
                 homepageCard.empty();
-                const card = '<img id="home-card" src="/homeImage/' + data.sessionId + '/'+ data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
+                const card = '<img id="home-card" src="/homeCards/' + data.sessionId + '/'+ data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
                 homepageCard.append(card);
             });
     });
