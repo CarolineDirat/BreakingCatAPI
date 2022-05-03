@@ -21,7 +21,7 @@ import { async } from 'regenerator-runtime';
 
 $(document).ready(function() {
     //$('body').prepend('<h1>'+greet('jill')+'</h1>');
-
+       
     //////////////////// homepage - call a new card ////////////////////////
     
     const clickHere = $('#homepage-click-here');
@@ -32,7 +32,7 @@ $(document).ready(function() {
         $.ajax({url: urlNewCard})
             .then(function (data) {
                 homepageCard.empty();
-                const card = '<img src="/homeImage/' + data.sessionId + '/'+ data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
+                const card = '<img id="home-card" src="/homeImage/' + data.sessionId + '/'+ data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
                 homepageCard.append(card);
             });
     });

@@ -6,9 +6,10 @@
 }
 
 body {
-    background-color: $green-100;
     font-family: "Averia Serif Libre";
 }
+
+//////////// HOMEPAGE ////////////////////
 
 body a {
     text-decoration: none;
@@ -16,23 +17,41 @@ body a {
 }
 
 body a:hover {
-    color: $green-300;
+    color: $green;
 }
 
-.btn-dark {
-    color: $green-100 !important;
+#logo {
+    width: 300px;
 }
 
 .bc-header {
-    color: $green-100;
+    color: whitesmoke;
 }
 
 .bc-footer {
-    color: $green-100;
+    color: whitesmoke;
     font-size: 1.3rem;
 }
 
 .bc-footer a {
-    color: $green-100;
+    color: whitesmoke;
     text-decoration: none;
+}
+
+@media (max-width: 592px) {
+    #logo {
+        width: 200px;
+    }
+    .bc-footer {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 530px) {
+    #homepage h3 {
+        font-size: 1.2rem !important;
+    }
+    .bc-footer {
+        font-size: 1rem !important;
+    }
 }
