@@ -9,6 +9,6 @@ class CallDownCataasService extends CallCataasService
 {
     public function getApi(string $url, string $uri = ''): ResponseInterface
     {
-        throw new \Exception('Cataas Service is down', 1);
+        throw new \Exception($url . ': Cataas Service is down', 1);
     }
 }

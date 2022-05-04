@@ -1,57 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
+@import "homepage";
 
 @font-face {
-    font-family: "Averia Serif Libre";
-    src: url("../fonts/Averia_Serif_Libre.ttf") format("ttf");
+  font-family: "Averia Serif Libre";
+  src: url("../fonts/Averia_Serif_Libre.ttf") format("ttf");
 }
 
 body {
-    font-family: "Averia Serif Libre";
-}
-
-//////////// HOMEPAGE ////////////////////
-
-body a {
-    text-decoration: none;
-    color: black;
-}
-
-body a:hover {
-    color: $green;
-}
-
-#logo {
-    width: 300px;
-}
-
-.bc-header {
-    color: whitesmoke;
-}
-
-.bc-footer {
-    color: whitesmoke;
-    font-size: 1.3rem;
-}
-
-.bc-footer a {
-    color: whitesmoke;
-    text-decoration: none;
-}
-
-@media (max-width: 592px) {
-    #logo {
-        width: 200px;
-    }
-    .bc-footer {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 530px) {
-    #homepage h3 {
-        font-size: 1.2rem !important;
-    }
-    .bc-footer {
-        font-size: 1rem !important;
-    }
+  font-family: "Averia Serif Libre", serif;
 }
