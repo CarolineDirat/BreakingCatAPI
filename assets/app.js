@@ -6,53 +6,44 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.scss';
+import "./styles/app.scss";
 
 // start the Stimulus application
-import './bootstrap';
+import "./bootstrap";
 
 // loads the jquery package from node_modules
-import $ from 'jquery';
-import { async } from 'regenerator-runtime';
+import $ from "jquery";
+import { async } from "regenerator-runtime";
 
 // import the function from greet.js (the .js extension is optional)
 // ./ (or ../) means to look for a local file
 // import greet from './greet';
 
-$(document).ready(function() {
-    //$('body').prepend('<h1>'+greet('jill')+'</h1>');
+$(document).ready(function () {
+  //$('body').prepend('<h1>'+greet('jill')+'</h1>');
 
-    //////////////////// homepage - call a new card ////////////////////////
+  //////////////////// homepage - call a new card ////////////////////////
 
-    const loader = '<div class="spinner-border m-5" role="status">'
-        + '<span class="visually-hidden">Loading...</span></div>'
-        + '<div style="height: 500px"></div>'
-    ;
-    const loaderDiv = $('#homepage-loader');
-    const homepageCard = $('#homepage-card');
-    loaderDiv.hide();
-    $(document)
-        .ajaxStart(function() {
-            homepageCard.empty();
-            loaderDiv.append(loader);
-        })
-        .ajaxStop(function() {
-            loaderDiv.empty();
-        })
-    ;
+  const spinner = $("#homepage-spinner");
+  const homepageCard = $("#homepage-card");
+  $(document).ajaxStop(function () {
+    $(".spinner-border").addClass("d-none");
+  });
 
-    const clickHere = $('#homepage-click-here');
-    var urlNewCard = homepageCard.data('url');
+  const clickHere = $("#homepage-click-here");
+  var urlNewCard = homepageCard.data("url");
 
-    clickHere.on('click', function(e) {
-        $.ajax({url: urlNewCard})
-            .then(function (data) {
-                const card = '<img id="home-card" src="/homeCards/'
-                    + data.sessionId
-                    + '/'
-                    + data.filename
-                    + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
-                homepageCard.append(card);
-            });
+  clickHere.on("click", function (e) {
+    spinner.removeClass("d-none");
+    $.ajax({ url: urlNewCard }).then(function (data) {
+      homepageCard.empty();
+      const card =
+        '<img id="home-card" src="/homeCards/' +
+        data.sessionId +
+        "/" +
+        data.filename +
+        '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
+      homepageCard.append(card);
     });
+  });
 });
