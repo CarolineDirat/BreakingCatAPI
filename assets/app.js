@@ -35,6 +35,7 @@ $(document).ready(function () {
 
   clickHere.on("click", function (e) {
     spinner.removeClass("d-none");
+    $("#footer").addClass("d-none");
     $.ajax({ url: urlNewCard }).then(function (data) {
       homepageCard.empty();
       const card =
@@ -44,6 +45,7 @@ $(document).ready(function () {
         data.filename +
         '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
       homepageCard.append(card);
+      $("#footer").removeClass("d-none");
     });
   });
 });
