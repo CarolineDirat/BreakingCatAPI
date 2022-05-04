@@ -1,0 +1,46 @@
+body a {
+  text-decoration: none;
+  color: black;
+}
+
+.bc-footer a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+body a:hover {
+  color: $green;
+}
+
+#logo {
+  width: 300px;
+}
+
+.bc-header {
+  color: whitesmoke;
+}
+
+.bc-footer {
+  color: whitesmoke;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 592px) {
+  #logo {
+    width: 200px;
+  }
+
+  .bc-footer {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 530px) {
+  #homepage h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  .bc-footer {
+    font-size: 1rem !important;
+  }
+}
