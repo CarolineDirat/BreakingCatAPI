@@ -42,7 +42,7 @@ final class SaveHomeCard
     private function deleteOldCard(string $dir, Filesystem $filesystem): void
     {
         $files = (array) \scandir($dir);
-        foreach ($files as $key => $file) {
+        foreach ($files as $file) {
             if (\str_contains((string) $file, 'home')) {
                 $filesystem->remove($dir . '/' . $file);
             }

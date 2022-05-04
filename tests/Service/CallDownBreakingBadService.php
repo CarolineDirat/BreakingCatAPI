@@ -9,6 +9,6 @@ class CallDownBreakingBadService extends CallBreakingBadService
 {
     public function getApi(string $url, string $uri = ''): ResponseInterface
     {
-        throw new \Exception('503 Service Unavailable - Breaking Bad Quotes Service is down', 1);
+        throw new \Exception($url . ': 503 Service Unavailable - Breaking Bad Quotes Service is down', 1);
     }
 }
