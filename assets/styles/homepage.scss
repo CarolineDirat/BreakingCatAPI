@@ -25,6 +25,10 @@ body a:hover {
   font-size: 1.3rem;
 }
 
+#homepage-click-here:focus {
+  box-shadow: none;
+}
+
 @media (max-width: 592px) {
   #logo {
     width: 200px;
