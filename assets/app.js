@@ -21,18 +21,35 @@ import { async } from 'regenerator-runtime';
 
 $(document).ready(function() {
     //$('body').prepend('<h1>'+greet('jill')+'</h1>');
-       
+
     //////////////////// homepage - call a new card ////////////////////////
-    
-    const clickHere = $('#homepage-click-here');
+
+    const loader = '<div class="spinner-border m-5" role="status">'
+        + '<span class="visually-hidden">Loading...</span></div>'
+    const loaderDiv = $('#homepage-loader');
     const homepageCard = $('#homepage-card');
+    loaderDiv.hide();
+    $(document)
+        .ajaxStart(function() {
+            homepageCard.empty();
+            loaderDiv.append(loader);
+        })
+        .ajaxStop(function() {
+            loaderDiv.empty();
+        })
+    ;
+
+    const clickHere = $('#homepage-click-here');
     var urlNewCard = homepageCard.data('url');
 
     clickHere.on('click', function(e) {
         $.ajax({url: urlNewCard})
             .then(function (data) {
-                homepageCard.empty();
-                const card = '<img id="home-card" src="/homeCards/' + data.sessionId + '/'+ data.filename + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
+                const card = '<img id="home-card" src="/homeCards/'
+                    + data.sessionId
+                    + '/'
+                    + data.filename
+                    + '" class="img-fluid" alt="Cataas photo with Breaking Bad Quotes">';
                 homepageCard.append(card);
             });
     });
