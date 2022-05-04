@@ -25,7 +25,9 @@ $(document).ready(function() {
     //////////////////// homepage - call a new card ////////////////////////
 
     const loader = '<div class="spinner-border m-5" role="status">'
-        + '<span class="visually-hidden">Loading...</span></div>';
+        + '<span class="visually-hidden">Loading...</span></div>'
+        + '<div style="height: 500px"></div>'
+    ;
     const loaderDiv = $('#homepage-loader');
     const homepageCard = $('#homepage-card');
     loaderDiv.hide();
