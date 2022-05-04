@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CronController
 {
     #[Route('/cron/delete-homecards', name: 'delete_homecards')]
-    public function index(KernelInterface $kernel): Response
+    public function deleteHomeCards(KernelInterface $kernel): Response
     {
         $application = new Application($kernel);
         $application->setAutoExit(false);
