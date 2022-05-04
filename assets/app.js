@@ -50,7 +50,7 @@ $(document).ready(function () {
       .then(function () {
         setTimeout(() => {
           $("#footer").removeClass("d-none");
-        }, 100);
+        }, 200);
       });
   });
 });
