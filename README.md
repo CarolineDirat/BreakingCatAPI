@@ -4,7 +4,7 @@
 
 | PHPunit | Codacy |
 | ------- | ------ |
-|[![pipeline status](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/badges/develop/pipeline.svg)](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/-/commits/develop) [![coverage report](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/badges/develop/coverage.svg)](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/-/commits/develop)|[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8431cca53d5a4b22bf2ffee9e8be848d)](https://www.codacy.com/gh/CarolineDirat/BreakingCatAPI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CarolineDirat/BreakingCatAPI&amp;utm_campaign=Badge_Grade) |
+|[![pipeline status](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/badges/master/pipeline.svg)](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/-/commits/master) [![coverage report](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/badges/master/coverage.svg)](https://gitlab.com/Squirrel-Jo/BreakingCatAPI/-/commits/master)|[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8431cca53d5a4b22bf2ffee9e8be848d)](https://www.codacy.com/gh/CarolineDirat/BreakingCatAPI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CarolineDirat/BreakingCatAPI&amp;utm_campaign=Badge_Grade) |
 
 ![](https://github.com/CarolineDirat/BreakingCatAPI/blob/master/breaking_cat_header.png)
 *Image from <https://breakingbad.echosystem.fr/>*
@@ -18,6 +18,7 @@ Breaking Bad Quotes comes from [Breaking Bad Quotes API](https://breakingbadquot
 <https://www.breakingcat.fr>
 
 ## GET /api/doc
+
 To read the api documentation
 
 ## GET /api/random-jpeg

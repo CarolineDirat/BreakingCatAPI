@@ -29,4 +29,5 @@ phpunit:
   script:
     - php bin/console cache:clear --env=test
     - php -d xdebug.mode=coverage ./vendor/bin/simple-phpunit --coverage-text --colors=never
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   allow_failure: false
