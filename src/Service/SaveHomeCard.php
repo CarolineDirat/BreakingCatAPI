@@ -23,7 +23,7 @@ final class SaveHomeCard
             $filename = 'home.jpeg';
         }
         $dir = sprintf(
-            '%s/public/homeImage/%s',
+            '%s/public/homeCards/%s',
             $this->kernel->getProjectDir(),
             $sessionId
         );
